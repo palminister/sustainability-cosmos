@@ -2,8 +2,10 @@
 	import { LayerCake, Svg, Html } from "layercake";
 	import { mean, deviation } from "d3";
 	import {
+		viewOptions,
 		indexOptions,
 		continentOptions,
+		colorOptions,
 		filterData,
 		formatSNEData,
 		formatBeeSwarmData
@@ -18,10 +20,11 @@
 	import Tooltip from "$components/charts/Tooltip.html.svelte";
 	import Deviation from "$components/charts/Deviation.svg.svelte";
 
-	const buttonSetOptions = [{ value: "Cluster" }, { value: "BeeSwarm" }];
+	let selectedView = viewOptions[0].value;
 	let selectedIndex = indexOptions[0].value;
 	let selectedContinent = continentOptions[0].value;
-	let selectedButtonSet = buttonSetOptions[0].value;
+	let selectedColor = colorOptions[0].value;
+	let selectedColorIndex = indexOptions[0].value;
 
 	let evt;
 	let hideTooltip = true;
@@ -35,46 +38,67 @@
 		right: p
 	};
 
-	let data = formatSNEData(selectedIndex, worldData);
-	let meanValue = null;
-	let stdValue = null;
+	let data = formatSNEData(
+		selectedIndex,
+		selectedColor,
+		selectedColorIndex,
+		worldData
+	);
+	let [meanValue, stdValue] = [null, null];
 
-	$: if (selectedButtonSet === "Cluster") {
-		data = formatSNEData(selectedIndex, worldData);
+	$: if (selectedView === "Cluster") {
+		data = formatSNEData(
+			selectedIndex,
+			selectedColor,
+			selectedColorIndex,
+			worldData
+		);
 		[x, y] = ["SNE_X", "SNE_Y"];
-		meanValue = null;
-		stdValue = null;
-	} else if (selectedButtonSet === "BeeSwarm") {
-		let beeSwarmData = formatBeeSwarmData(selectedIndex, worldData);
+		[meanValue, stdValue] = [null, null];
+	} else if (selectedView === "BeeSwarm") {
+		let beeSwarmData = formatBeeSwarmData(
+			selectedIndex,
+			selectedColor,
+			selectedColorIndex,
+			worldData
+		);
 		data = filterData("Continent", selectedContinent, beeSwarmData);
 		[x, y] = ["BeeSwarmX", "BeeSwarmY"];
-		meanValue = mean(data, (d) => d[y]);
-		stdValue = deviation(data, (d) => d[y]);
+		[meanValue, stdValue] = [
+			mean(data, (d) => d[y]),
+			deviation(data, (d) => d[y])
+		];
 	} else {
 		data = null;
 	}
+	$: console.log("data", data);
 </script>
 
 <section>
 	<h2>Force scatterplot</h2>
 	<ButtonSet
 		legend={"Choose"}
-		options={buttonSetOptions}
-		bind:value={selectedButtonSet}
+		options={viewOptions}
+		bind:value={selectedView}
 	/>
-	{#if selectedButtonSet === "Cluster"}
+	<Select
+		label={"Select index"}
+		options={indexOptions}
+		bind:value={selectedIndex}
+	/>
+	<Select
+		label={"Select color"}
+		options={colorOptions}
+		bind:value={selectedColor}
+	/>
+	{#if selectedColor === "Index"}
 		<Select
-			label={"Select something"}
+			label={"Select color index"}
 			options={indexOptions}
-			bind:value={selectedIndex}
+			bind:value={selectedColorIndex}
 		/>
 	{/if}
-	{#if selectedButtonSet === "BeeSwarm"}
-		<Select
-			label={"Select something"}
-			options={indexOptions}
-			bind:value={selectedIndex}
-		/>
+	{#if selectedView === "BeeSwarm"}
 		<Select
 			label={"Select region"}
 			options={continentOptions}

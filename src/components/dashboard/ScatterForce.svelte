@@ -12,7 +12,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let r = 6;
-	export let fill = "#ccc";
+	// export let fill = "#ccc";
 	export let stroke = "#000";
 	export let strokeWidth = 0;
 
@@ -70,6 +70,7 @@
 		{@const cx = d.x}
 		{@const cy = d.y}
 		{@const id = d.Country}
+		{@const color = d.color}
 		<circle
 			on:mouseover={(e) => dispatch("mousemove", { e, props: d })}
 			on:focus={(e) => dispatch("mousemove", { e, props: d })}
@@ -79,7 +80,7 @@
 			{cx}
 			{cy}
 			{r}
-			{fill}
+			fill={color}
 			{stroke}
 			stroke-width={strokeWidth}
 		/>

@@ -7,6 +7,7 @@
 		continentOptions,
 		colorOptions,
 		sizeOptions,
+		sizeFeatureOptions,
 		filterData,
 		formatSNEData,
 		formatBeeSwarmData
@@ -14,6 +15,7 @@
 
 	import worldData from "$components/dashboard/world_data_imputed.csv";
 	import Select from "$components/helpers/Select.svelte";
+	import Svelecte from "../../../node_modules/svelecte/src/Svelecte.svelte";
 	import ButtonSet from "$components/helpers/ButtonSet.svelte";
 	import AxisX from "$components/charts/AxisX.svg.svelte";
 	import AxisY from "$components/charts/AxisY.svg.svelte";
@@ -28,7 +30,7 @@
 	let selectedColorIndex = indexOptions[0].value;
 	let selectedSize = sizeOptions[0].value;
 	let selectedSizeIndex = indexOptions[0].value;
-	let selectedSizeFeature = indexOptions[0].value;
+	let selectedSizeFeature = "Economic Growth";
 
 	let evt;
 	let hideTooltip = true;
@@ -48,6 +50,7 @@
 		selectedColorIndex,
 		selectedSize,
 		selectedSizeIndex,
+		selectedSizeFeature,
 		worldData
 	);
 	let [meanValue, stdValue] = [null, null];
@@ -59,6 +62,7 @@
 			selectedColorIndex,
 			selectedSize,
 			selectedSizeIndex,
+			selectedSizeFeature,
 			worldData
 		);
 		[x, y] = ["SNE_X", "SNE_Y"];
@@ -70,6 +74,7 @@
 			selectedColorIndex,
 			selectedSize,
 			selectedSizeIndex,
+			selectedSizeFeature,
 			worldData
 		);
 		data = filterData("Continent", selectedContinent, beeSwarmData);
@@ -82,6 +87,7 @@
 		data = null;
 	}
 	$: console.log("data", data);
+	$: console.log("selectedSizeFeature", selectedSizeFeature);
 </script>
 
 <section>
@@ -91,38 +97,54 @@
 		options={viewOptions}
 		bind:value={selectedView}
 	/>
-	<Select
-		label={"Select index"}
+	<p>Select index</p>
+	<Svelecte
+		labelField="value"
 		options={indexOptions}
 		bind:value={selectedIndex}
 	/>
-	<Select
-		label={"Select color"}
+	<p>Select color</p>
+	<Svelecte
+		labelField="value"
 		options={colorOptions}
 		bind:value={selectedColor}
 	/>
-	<Select
-		label={"Select size"}
-		options={sizeOptions}
-		bind:value={selectedSize}
-	/>
 	{#if selectedColor === "Index"}
-		<Select
-			label={"Select color index"}
+		<p>Select color index</p>
+		<Svelecte
+			labelField="value"
 			options={indexOptions}
 			bind:value={selectedColorIndex}
 		/>
 	{/if}
+	<p>Select size</p>
+	<Svelecte
+		labelField="value"
+		options={sizeOptions}
+		bind:value={selectedSize}
+	/>
 	{#if selectedSize === "Index"}
-		<Select
-			label={"Select size index"}
+		<p>Select size index</p>
+		<Svelecte
+			labelField="value"
 			options={indexOptions}
 			bind:value={selectedSizeIndex}
 		/>
 	{/if}
+	{#if selectedSize === "Feature"}
+		<p>Select Feature</p>
+		<Svelecte
+			groupLabelField="groupHeader"
+			groupItemsField="items"
+			labelField="value"
+			options={sizeFeatureOptions}
+			bind:value={selectedSizeFeature}
+		/>
+	{/if}
 	{#if selectedView === "BeeSwarm"}
-		<Select
-			label={"Select region"}
+		<p>Select region</p>
+		<Svelecte
+			labelField="value"
 			options={continentOptions}
 			bind:value={selectedContinent}
 		/>

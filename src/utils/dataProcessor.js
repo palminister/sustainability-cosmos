@@ -1,6 +1,7 @@
 import factors from "$components/dashboard/factors.csv";
 import rawData from "$components/dashboard/world_data_raw.csv";
-import { interpolateRgb, extent, scaleLog, scaleLinear } from "d3";
+import { interpolateRgb, extent, scaleLog, scaleLinear, group } from "d3";
+
 export const viewOptions = [{ value: "Cluster" }, { value: "BeeSwarm" }];
 
 export const indexOptions = [
@@ -34,7 +35,11 @@ export const sizeOptions = [
 	{ value: "Feature" }
 ];
 
-export const sizeFeatureOptions = [];
+const factorsGrouped = group(factors, (d) => d.Factor);
+export const sizeFeatureOptions = [...factorsGrouped].map(([key, value]) => ({
+	groupHeader: key,
+	items: value.map((d) => ({ value: d["Columns"] }))
+}));
 
 export const colors = {
 	red: "#FF4200",
@@ -83,14 +88,13 @@ export const colorAccessor = (d, color, key, colorIndex) => {
 	}
 };
 
-export const sizeAccessor = (d, size, sizeIndex) => {
+export const sizeAccessor = (d, size, sizeIndex, sizeFeature) => {
 	if (size === "GDP") {
 		return +d["GDP (current US$)"];
 	} else if (size === "Index") {
 		return +d[sizeIndex + "Index"];
 	} else {
-		// TODO: Aceess feature
-		return +d[size];
+		return +d[sizeFeature];
 	}
 };
 
@@ -100,11 +104,15 @@ export const formatSNEData = (
 	colorIndex,
 	size,
 	sizeIndex,
+	sizeFeature,
 	data
 ) => {
 	let tsneKey = `tsne${key.slice(0, 3)}`;
-	let sizeDomain = extent(data, (d) => sizeAccessor(d, size, sizeIndex));
+	let sizeDomain = extent(data, (d) =>
+		sizeAccessor(d, size, sizeIndex, sizeFeature)
+	);
 	let logScale = scaleLog().domain(sizeDomain).range([5, 15]);
+	let linearScale = scaleLinear().domain(sizeDomain).range([5, 15]);
 	return data.map((d, index) => {
 		return {
 			// ...rawData[index],
@@ -113,8 +121,11 @@ export const formatSNEData = (
 			SNE_X: +d[tsneKey + "_X"],
 			SNE_Y: +d[tsneKey + "_Y"],
 			color: colorAccessor(d, color, key, colorIndex),
-			size: logScale(sizeAccessor(d, size, sizeIndex)),
-			isSize: sizeAccessor(rawData[index], size, sizeIndex) !== 0
+			size:
+				size === "GDP"
+					? logScale(sizeAccessor(d, size, sizeIndex, sizeFeature))
+					: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
+			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0
 		};
 	});
 };
@@ -125,11 +136,15 @@ export const formatBeeSwarmData = (
 	colorIndex,
 	size,
 	sizeIndex,
+	sizeFeature,
 	data
 ) => {
 	let beeSwarmKey = `${key}Index`;
-	let sizeDomain = extent(data, (d) => sizeAccessor(d, size, sizeIndex));
+	let sizeDomain = extent(data, (d) =>
+		sizeAccessor(d, size, sizeIndex, sizeFeature)
+	);
 	let logScale = scaleLog().domain(sizeDomain).range([5, 15]);
+	let linearScale = scaleLinear().domain(sizeDomain).range([5, 15]);
 	return data.map((d, index) => {
 		return {
 			// ...rawData[index],
@@ -138,8 +153,11 @@ export const formatBeeSwarmData = (
 			BeeSwarmX: 0,
 			BeeSwarmY: +d[beeSwarmKey],
 			color: colorAccessor(d, color, key, colorIndex),
-			size: logScale(sizeAccessor(d, size, sizeIndex)),
-			isSize: sizeAccessor(rawData[index], size, sizeIndex) !== 0
+			size:
+				size === "GDP"
+					? logScale(sizeAccessor(d, size, sizeIndex, sizeFeature))
+					: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
+			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0
 		};
 	});
 };

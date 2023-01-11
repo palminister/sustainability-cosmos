@@ -98,6 +98,8 @@ export const sizeAccessor = (d, size, sizeIndex, sizeFeature) => {
 	}
 };
 
+export const sizeRange = [5, 15];
+
 export const formatSNEData = (
 	key,
 	color,
@@ -111,8 +113,8 @@ export const formatSNEData = (
 	let sizeDomain = extent(data, (d) =>
 		sizeAccessor(d, size, sizeIndex, sizeFeature)
 	);
-	let logScale = scaleLog().domain(sizeDomain).range([5, 15]);
-	let linearScale = scaleLinear().domain(sizeDomain).range([5, 15]);
+	let logScale = scaleLog().domain(sizeDomain).range(sizeRange);
+	let linearScale = scaleLinear().domain(sizeDomain).range(sizeRange);
 	return data.map((d, index) => {
 		return {
 			// ...rawData[index],
@@ -143,8 +145,8 @@ export const formatBeeSwarmData = (
 	let sizeDomain = extent(data, (d) =>
 		sizeAccessor(d, size, sizeIndex, sizeFeature)
 	);
-	let logScale = scaleLog().domain(sizeDomain).range([5, 15]);
-	let linearScale = scaleLinear().domain(sizeDomain).range([5, 15]);
+	let logScale = scaleLog().domain(sizeDomain).range(sizeRange);
+	let linearScale = scaleLinear().domain(sizeDomain).range(sizeRange);
 	return data.map((d, index) => {
 		return {
 			// ...rawData[index],

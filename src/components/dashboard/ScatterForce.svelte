@@ -11,16 +11,12 @@
 	const { data, xGet, yGet, width } = getContext("LayerCake");
 	const dispatch = createEventDispatcher();
 
-	export let r = 6;
-	// export let fill = "#ccc";
-	export let stroke = "#000";
+	export let stroke = "none";
 	export let strokeWidth = 0;
 
 	export let xStrength = 0.5;
 	export let yStrength = 0.5;
 	const random = randomUniform(-800, 800);
-	// const randomRadius = randomUniform(6, 15);
-	// const random = 0;
 
 	let nodes = [];
 	const updatePositions = () => {
@@ -48,9 +44,9 @@
 			)
 			.force(
 				"collide",
-				forceCollide((d) => r)
+				forceCollide((d) => d.size)
 					.iterations(3)
-					.strength(1)
+					.strength(1.5)
 			)
 			.on("tick", (d) => {
 				nodes = nodes;
@@ -70,20 +66,38 @@
 		{@const cx = d.x}
 		{@const cy = d.y}
 		{@const id = d.Country}
-		{@const color = d.color}
-		<circle
-			on:mouseover={(e) => dispatch("mousemove", { e, props: d })}
-			on:focus={(e) => dispatch("mousemove", { e, props: d })}
-			on:click={(e) => dispatch("click", { e, props: d })}
-			on:keydown={(e) => dispatch("click", { e, props: d })}
-			{id}
-			{cx}
-			{cy}
-			{r}
-			fill={color}
-			{stroke}
-			stroke-width={strokeWidth}
-		/>
+		{@const fill = d.color}
+		{@const r = d.size}
+		{#if d.isSize}
+			<circle
+				on:mouseover={(e) => dispatch("mousemove", { e, props: d })}
+				on:focus={(e) => dispatch("mousemove", { e, props: d })}
+				on:click={(e) => dispatch("click", { e, props: d })}
+				on:keydown={(e) => dispatch("click", { e, props: d })}
+				{id}
+				{cx}
+				{cy}
+				{r}
+				{fill}
+				{stroke}
+				stroke-width={strokeWidth}
+			/>
+		{:else}
+			<circle
+				on:mouseover={(e) => dispatch("mousemove", { e, props: d })}
+				on:focus={(e) => dispatch("mousemove", { e, props: d })}
+				on:click={(e) => dispatch("click", { e, props: d })}
+				on:keydown={(e) => dispatch("click", { e, props: d })}
+				{id}
+				{cx}
+				{cy}
+				{r}
+				fill="transparent"
+				clip-path="circle()"
+				stroke={fill}
+				stroke-width={5}
+			/>
+		{/if}
 	{/each}
 </g>
 

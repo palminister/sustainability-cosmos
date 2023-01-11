@@ -1,0 +1,87 @@
+﻿Columns,Factor,Direction
+Ease of doing business score (0 = lowest performance to 100 = best performance),Economic,D
+Economic Growth,Economic,D
+"Employment to population ratio, 15+, total (%) (modeled ILO estimate)",Economic,D
+GDP (current US$),Economic,D
+GDP growth(annual %),Economic,D
+GDP per capita (current US$),Economic,D
+GINI index,Economic,I
+GNI (current US$),Economic,D
+GNI per capita (current LCU),Economic,D
+"Government expenditure on education, total (% of government expenditure)",Economic,D
+"Inflation, GDP deflator (annual %)",Economic,I
+Merchandise trade (% of GDP),Economic,D
+"Net trade in goods (BoP, current US$)",Economic,D
+Rural population (% of total population),Economic,I
+Start-up procedures to register a business (number),Economic,D
+Tax payments (number),Economic,D
+Tax revenue (% of GDP),Economic,D
+Trade (% of GDP),Economic,D
+"Unemployment, total (% of total labor force) (modeled ILO estimate)",Economic,I
+CO2 emissions (metric tons per capita),Environment,I
+Electric power consumption (kWh per capita),Environment,I
+"PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",Environment,I
+"PM2.5 air pollution, population exposed to levels exceeding WHO guideline value (% of total)",Environment,I
+Population density (people per sq. km of land area),Environment,I
+Renewable electricity output (% of total electricity output),Environment,D
+Renewable energy consumption (% of total final energy consumption),Environment,D
+Renewable internal freshwater resources per capita (cubic meters),Environment,D
+"Renewable internal freshwater resources, total (billion cubic meters)",Environment,D
+share of electricity from renewables generation,Environment,D
+Surface Area (Km2),Environment,D
+Total greenhouse gas emissions (% change from 1990),Environment,D
+Adults (ages 15-49) newly infected with HIV,Health,I
+"Cause of death, by communicable diseases and maternal, prenatal and nutrition conditions (% of total)",Health,I
+"Cause of death, by injury (% of total)",Health,I
+"Cause of death, by non-communicable diseases (% of total)",Health,I
+"Death rate, crude (per 1,000 people)",Health,I
+health expenditure % of GDP,Health,D
+health expenditure per person,Health,D
+"Incidence of HIV, ages 15-49 (per 1,000 uninfected population ages 15-49)",Health,I
+"Incidence of HIV, all (per 1,000 uninfected population)",Health,I
+"Incidence of tuberculosis (per 100,000 people)",Health,I
+Infant Mortality,Health,I
+"Life expectancy at birth, total (years)",Health,D
+"Maternal Mortality Per 100,000 Live Births",Health,I
+"Mortality caused by road traffic injury (per 100,000 population)",Health,I
+"Mortality rate attributed to household and ambient air pollution, age-standardized (per 100,000 population)",Health,I
+"Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene (per 100,000 population)",Health,I
+"Mortality rate, adult, female (per 1,000 female adults)",Health,I
+"Mortality rate, adult, male (per 1,000 male adults)",Health,I
+"Mortality rate, infant (per 1,000 live births)",Health,I
+"Mortality rate, under-5 (per 1,000 live births)",Health,I
+Population,Health,D
+"Prevalence of HIV, total (% of population ages 15-49)",Health,I
+Prevalence of severe food insecurity in the population (%),Health,I
+Prevalence of undernourishment (% of population),Health,I
+"Tuberculosis case detection rate (%, all forms)",Health,I
+Tuberculosis treatment success rate (% of new cases),Health,I
+Young people (ages 15-24) newly infected with HIV,Health,I
+% of primary school aged kids out of school,Human,I
+% of seats held by women in national parliaments,Human,D
+Access to electricity (% of population),Human,D
+Education as % of GDP,Human,D
+Happy Planet Index,Human,D
+Human capital index (HCI) (scale 0-1),Human,D
+Human Development Index,Human,D
+"School enrollment, secondary (% gross)",Human,D
+Sustainable Economic Development Assessment (SEDA),Human,D
+"Total alcohol consumption per capita (liters of pure alcohol, projected estimates, 15+ years of age)",Human,I
+Women Business and the Law Index Score (scale 1-100),Human,D
+Civil Liberties Score,Politic,D
+Control Of Corruption,Politic,D
+Domestic general government health expenditure (% of GDP),Politic,D
+Financial Freedom Score,Politic,D
+Government Effectiveness,Politic,D
+Government Expenditure (% of GDP),Politic,D
+Government Integrity Score,Politic,D
+Judicial Effectiveness Score,Politic,D
+Military expenditure (% of GDP),Politic,D
+Military expenditure (% of general government expenditure),Politic,D
+Military Spending as % of GDP,Politic,D
+Overall Economic Freedom Score,Politic,D
+Political Rights Score,Politic,D
+Political Stability & Absence Of Violence,Politic,D
+Regulatory Quality,Politic,D
+Rule Of Law,Politic,D
+UHC service coverage index,Politic,D

@@ -6,6 +6,7 @@
 		indexOptions,
 		continentOptions,
 		colorOptions,
+		sizeOptions,
 		filterData,
 		formatSNEData,
 		formatBeeSwarmData
@@ -25,6 +26,9 @@
 	let selectedContinent = continentOptions[0].value;
 	let selectedColor = colorOptions[0].value;
 	let selectedColorIndex = indexOptions[0].value;
+	let selectedSize = sizeOptions[0].value;
+	let selectedSizeIndex = indexOptions[0].value;
+	let selectedSizeFeature = indexOptions[0].value;
 
 	let evt;
 	let hideTooltip = true;
@@ -42,6 +46,8 @@
 		selectedIndex,
 		selectedColor,
 		selectedColorIndex,
+		selectedSize,
+		selectedSizeIndex,
 		worldData
 	);
 	let [meanValue, stdValue] = [null, null];
@@ -51,6 +57,8 @@
 			selectedIndex,
 			selectedColor,
 			selectedColorIndex,
+			selectedSize,
+			selectedSizeIndex,
 			worldData
 		);
 		[x, y] = ["SNE_X", "SNE_Y"];
@@ -60,6 +68,8 @@
 			selectedIndex,
 			selectedColor,
 			selectedColorIndex,
+			selectedSize,
+			selectedSizeIndex,
 			worldData
 		);
 		data = filterData("Continent", selectedContinent, beeSwarmData);
@@ -91,11 +101,23 @@
 		options={colorOptions}
 		bind:value={selectedColor}
 	/>
+	<Select
+		label={"Select size"}
+		options={sizeOptions}
+		bind:value={selectedSize}
+	/>
 	{#if selectedColor === "Index"}
 		<Select
 			label={"Select color index"}
 			options={indexOptions}
 			bind:value={selectedColorIndex}
+		/>
+	{/if}
+	{#if selectedSize === "Index"}
+		<Select
+			label={"Select size index"}
+			options={indexOptions}
+			bind:value={selectedSizeIndex}
 		/>
 	{/if}
 	{#if selectedView === "BeeSwarm"}
@@ -120,7 +142,6 @@
 					}}
 					on:mouseout={() => (hideTooltip = true)}
 					on:click={(event) => console.log("click", event.detail.props)}
-					strokeWidth="1"
 				/>
 			</Svg>
 			<Html pointerEvents={false}>

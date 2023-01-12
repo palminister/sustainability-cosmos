@@ -169,8 +169,9 @@ export const formatBeeSwarmData = (
 };
 
 export const formatTableData = (data) => {
-	return data.map((d) => {
+	return data.map((d, index) => {
 		return {
+			...rawData[index],
 			Country: d.Country,
 			HumanIndex: +d.HumanIndex,
 			HealthIndex: +d.HealthIndex,

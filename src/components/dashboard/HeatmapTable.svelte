@@ -4,6 +4,7 @@
 		filterData,
 		colorAccessor
 	} from "$utils/dataProcessor";
+	import { color } from "d3";
 	import { fade } from "svelte/transition";
 	import { createEventDispatcher } from "svelte";
 	const dispatch = createEventDispatcher();
@@ -16,10 +17,10 @@
 	$: filteredRows = filterData("Continent", continent, rows);
 	const headers = [
 		"Country",
-		"EnvironmentIndex",
-		"EconomicsIndex",
-		"PoliticsIndex",
 		"HealthIndex",
+		"PoliticsIndex",
+		"EconomicsIndex",
+		"EnvironmentIndex",
 		"HumanIndex",
 		"SustainabilityIndex"
 	];
@@ -73,6 +74,12 @@
 											'',
 											'',
 											formatHeader
+										)};
+										border: 5px solid {color(colorAccessor(row, '', '', formatHeader)).brighter(
+											0.8
+										)}; 
+										outline: 10px solid {color(colorAccessor(row, '', '', formatHeader)).darker(
+											3
 										)};"
 									>
 										{row[header].toFixed(2)}
@@ -92,6 +99,7 @@
 	header {
 		max-width: 52rem;
 		margin: auto;
+		color: var(--color-purple-light);
 	}
 	article {
 		display: flex;
@@ -104,7 +112,7 @@
 	section,
 	.row {
 		display: grid;
-		grid-template-columns: repeat(7, 1fr);
+		grid-template-columns: 2fr repeat(6, 1fr);
 		align-items: center;
 		text-align: center;
 		width: 100%;
@@ -112,6 +120,7 @@
 
 	.row {
 		margin-top: 10px;
+		/* text-align: right; */
 	}
 
 	.cell {
@@ -129,16 +138,19 @@
 	}
 
 	.bubble-container {
-		margin: 2px;
+		margin: 0px 10px 0px 0px;
 	}
 
 	.bubble {
 		display: flex;
-		width: 40px;
-		height: 40px;
 		margin: auto;
+		width: 35px;
+		height: 35px;
+		/* border-radius: 2px; */
 		border-radius: 100%;
 		align-items: center;
 		justify-content: center;
+		color: rgba(255, 255, 255, 0.688);
+		font-size: 0.6rem;
 	}
 </style>

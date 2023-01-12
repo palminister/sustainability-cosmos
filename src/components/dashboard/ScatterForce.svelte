@@ -1,6 +1,6 @@
 <script>
 	import { getContext, createEventDispatcher } from "svelte";
-	import { randomUniform } from "d3";
+	import { randomUniform, color } from "d3";
 	import {
 		forceSimulation,
 		forceX,
@@ -10,9 +10,6 @@
 	} from "d3-force";
 	const { data, xGet, yGet, width } = getContext("LayerCake");
 	const dispatch = createEventDispatcher();
-
-	export let stroke = "none";
-	export let strokeWidth = 0;
 
 	export let xStrength = 0.5;
 	export let yStrength = 0.5;
@@ -66,10 +63,28 @@
 		{@const cx = d.x}
 		{@const cy = d.y}
 		{@const id = d.Country}
+		{@const darker = color(d.color).darker(2)}
+		{@const r = d.size}
+		<circle
+			class="plot-stroke"
+			id={id + "-stroke"}
+			{cx}
+			{cy}
+			r={r + 10}
+			fill={darker}
+			opacity="0.2"
+		/>
+	{/each}
+	{#each nodes as d}
+		{@const cx = d.x}
+		{@const cy = d.y}
+		{@const id = d.Country}
 		{@const fill = d.color}
+		{@const lighter = color(d.color).brighter(0.2)}
 		{@const r = d.size}
 		{#if d.isSize}
 			<circle
+				class="plot"
 				on:mouseover={(e) => dispatch("mousemove", { e, props: d })}
 				on:focus={(e) => dispatch("mousemove", { e, props: d })}
 				on:click={(e) => dispatch("click", { e, props: d })}
@@ -79,11 +94,13 @@
 				{cy}
 				{r}
 				{fill}
-				{stroke}
-				stroke-width={strokeWidth}
+				clip-path="circle()"
+				stroke={lighter}
+				stroke-width={6}
 			/>
 		{:else}
 			<circle
+				class="plot"
 				on:mouseover={(e) => dispatch("mousemove", { e, props: d })}
 				on:focus={(e) => dispatch("mousemove", { e, props: d })}
 				on:click={(e) => dispatch("click", { e, props: d })}
@@ -102,8 +119,10 @@
 </g>
 
 <style>
-	circle {
+	.plot {
 		cursor: pointer;
+	}
+	circle {
 		transition: all 0.7s ease-out;
 	}
 </style>

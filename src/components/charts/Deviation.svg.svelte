@@ -35,19 +35,19 @@
 
 <style>
 	rect {
-		fill: var(--color-gray-100);
-		opacity: 0.5;
+		fill: var(--color-purple-dark);
+		opacity: 0.2;
 		transition: all 2s cubic-bezier(0, 0, 0.04, 1);
 	}
 	text,
 	line {
 		font-size: 0.725em;
 		font-weight: 200;
-		fill: var(--color-gray-500);
+		fill: var(--color-purple-light);
 		transition: all 2s cubic-bezier(0, 0, 0.04, 1);
 	}
 	line {
 		stroke-dasharray: 4px 4px;
-		stroke: var(--color-gray-500);
+		stroke: var(--color-purple-light);
 	}
 </style>

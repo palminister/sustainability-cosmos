@@ -36,7 +36,7 @@
 	let hideTooltip = true;
 
 	let [x, y] = ["SNE_X", "SNE_Y"];
-	const p = 20;
+	const p = 40;
 	const padding = {
 		top: p,
 		left: p,
@@ -192,5 +192,6 @@
 		margin: 1rem auto;
 		width: 100%;
 		height: 80vh;
+		background-color: #101127;
 	}
 </style>

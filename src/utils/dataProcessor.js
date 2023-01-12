@@ -52,7 +52,7 @@ export const colors = {
 	orange: "#ff7f00",
 	yellow: "#FFDE32",
 	purple: "#690EFF",
-	dark: "#0D172A"
+	dark: "#1e217e"
 };
 
 export const continentColors = {

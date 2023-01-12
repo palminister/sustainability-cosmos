@@ -16,11 +16,11 @@
 	$: filteredRows = filterData("Continent", continent, rows);
 	const headers = [
 		"Country",
-		"HumanIndex",
-		"HealthIndex",
 		"EnvironmentIndex",
 		"EconomicsIndex",
 		"PoliticsIndex",
+		"HealthIndex",
+		"HumanIndex",
 		"SustainabilityIndex"
 	];
 

@@ -52,13 +52,14 @@
 	}
 
 	.tick line {
-		stroke: var(--color-gray-300);
+		stroke: var(--color-purple-light);
+		opacity: 0.15;
 	}
 	.tick .gridline {
 		stroke-dasharray: 4px 4px;
 	}
 
 	.tick text {
-		fill: var(--color-gray-600);
+		fill: var(--color-purple-light);
 	}
 </style>

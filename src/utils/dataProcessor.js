@@ -2,7 +2,11 @@ import factors from "$components/dashboard/factors.csv";
 import rawData from "$components/dashboard/world_data_raw.csv";
 import { interpolateRgb, extent, scaleLog, scaleLinear, group } from "d3";
 
-export const viewOptions = [{ value: "Cluster" }, { value: "BeeSwarm" }];
+export const viewOptions = [
+	{ value: "Cluster" },
+	{ value: "BeeSwarm" },
+	{ value: "Heatmap" }
+];
 
 export const indexOptions = [
 	{ value: "Sustainability" },
@@ -117,7 +121,7 @@ export const formatSNEData = (
 	let linearScale = scaleLinear().domain(sizeDomain).range(sizeRange);
 	return data.map((d, index) => {
 		return {
-			// ...rawData[index],
+			...rawData[index],
 			Country: d.Country,
 			Continent: d.Continent,
 			SNE_X: +d[tsneKey + "_X"],
@@ -149,7 +153,7 @@ export const formatBeeSwarmData = (
 	let linearScale = scaleLinear().domain(sizeDomain).range(sizeRange);
 	return data.map((d, index) => {
 		return {
-			// ...rawData[index],
+			...rawData[index],
 			Country: d.Country,
 			Continent: d.Continent,
 			BeeSwarmX: 0,
@@ -160,6 +164,21 @@ export const formatBeeSwarmData = (
 					? logScale(sizeAccessor(d, size, sizeIndex, sizeFeature))
 					: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
 			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0
+		};
+	});
+};
+
+export const formatTableData = (data) => {
+	return data.map((d) => {
+		return {
+			Country: d.Country,
+			HumanIndex: +d.HumanIndex,
+			HealthIndex: +d.HealthIndex,
+			EnvironmentIndex: +d.EnvironmentIndex,
+			EconomicsIndex: +d.EconomicsIndex,
+			PoliticsIndex: +d.PoliticsIndex,
+			SustainabilityIndex: +d.SustainabilityIndex,
+			Continent: d.Continent
 		};
 	});
 };

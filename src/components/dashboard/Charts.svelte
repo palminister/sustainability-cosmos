@@ -14,7 +14,6 @@
 	} from "$utils/dataProcessor";
 
 	import worldData from "$components/dashboard/world_data_imputed.csv";
-	import Select from "$components/helpers/Select.svelte";
 	import Svelecte from "../../../node_modules/svelecte/src/Svelecte.svelte";
 	import ButtonSet from "$components/helpers/ButtonSet.svelte";
 	import AxisX from "$components/charts/AxisX.svg.svelte";
@@ -22,6 +21,7 @@
 	import ScatterForce from "$components/dashboard/ScatterForce.svelte";
 	import Tooltip from "$components/charts/Tooltip.html.svelte";
 	import Deviation from "$components/charts/Deviation.svg.svelte";
+	import HeatmapTable from "$components/dashboard/HeatmapTable.svelte";
 
 	let selectedView = viewOptions[0].value;
 	let selectedIndex = indexOptions[0].value;
@@ -67,7 +67,8 @@
 		);
 		[x, y] = ["SNE_X", "SNE_Y"];
 		[meanValue, stdValue] = [null, null];
-	} else if (selectedView === "BeeSwarm") {
+	}
+	$: if (selectedView === "BeeSwarm") {
 		let beeSwarmData = formatBeeSwarmData(
 			selectedIndex,
 			selectedColor,
@@ -83,11 +84,8 @@
 			mean(data, (d) => d[y]),
 			deviation(data, (d) => d[y])
 		];
-	} else {
-		data = null;
 	}
 	$: console.log("data", data);
-	$: console.log("selectedSizeFeature", selectedSizeFeature);
 </script>
 
 <section>
@@ -141,7 +139,7 @@
 			bind:value={selectedSizeFeature}
 		/>
 	{/if}
-	{#if selectedView === "BeeSwarm"}
+	{#if selectedView === "BeeSwarm" || selectedView === "Heatmap"}
 		<p>Select region</p>
 		<Svelecte
 			labelField="value"
@@ -151,33 +149,37 @@
 	{/if}
 
 	<figure>
-		<LayerCake {data} {x} {y} {padding}>
-			<Svg>
-				<AxisX />
-				<AxisY />
-				{#if stdValue}
-					<Deviation {meanValue} {stdValue} />
-				{/if}
-				<ScatterForce
-					on:mousemove={(event) => {
-						evt = hideTooltip = event;
-					}}
-					on:mouseout={() => (hideTooltip = true)}
-					on:click={(event) => console.log("click", event.detail.props)}
-				/>
-			</Svg>
-			<Html pointerEvents={false}>
-				{#if hideTooltip !== true}
-					<Tooltip {evt} let:detail>
-						{#each Object.entries(detail.props) as [key, value]}
-							{#if key === "Country"}
-								<div class="row"><span>{key}:</span> {value}</div>
-							{/if}
-						{/each}
-					</Tooltip>
-				{/if}
-			</Html>
-		</LayerCake>
+		{#if selectedView === "Heatmap"}
+			<HeatmapTable data={worldData} continent={selectedContinent} />
+		{:else}
+			<LayerCake {data} {x} {y} {padding}>
+				<Svg>
+					<AxisX />
+					<AxisY />
+					{#if stdValue}
+						<Deviation {meanValue} {stdValue} />
+					{/if}
+					<ScatterForce
+						on:mousemove={(event) => {
+							evt = hideTooltip = event;
+						}}
+						on:mouseout={() => (hideTooltip = true)}
+						on:click={(event) => console.log("click", event.detail.props)}
+					/>
+				</Svg>
+				<Html pointerEvents={false}>
+					{#if hideTooltip !== true}
+						<Tooltip {evt} let:detail>
+							{#each Object.entries(detail.props) as [key, value]}
+								{#if key === "Country"}
+									<div class="row"><span>{key}:</span> {value}</div>
+								{/if}
+							{/each}
+						</Tooltip>
+					{/if}
+				</Html>
+			</LayerCake>
+		{/if}
 	</figure>
 </section>
 

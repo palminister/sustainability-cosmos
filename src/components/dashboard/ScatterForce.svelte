@@ -80,7 +80,7 @@
 		{@const cy = d.y}
 		{@const id = d.Country}
 		{@const fill = d.color}
-		{@const lighter = color(d.color).brighter(0.2)}
+		{@const brighter = color(d.color).brighter(0.2)}
 		{@const r = d.size}
 		{#if d.isSize}
 			<circle
@@ -95,7 +95,7 @@
 				{r}
 				{fill}
 				clip-path="circle()"
-				stroke={lighter}
+				stroke={brighter}
 				stroke-width={6}
 			/>
 		{:else}

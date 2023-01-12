@@ -150,7 +150,11 @@
 
 	<figure>
 		{#if selectedView === "Heatmap"}
-			<HeatmapTable data={worldData} continent={selectedContinent} />
+			<HeatmapTable
+				on:click={(event) => console.log("click", event.detail.props)}
+				data={worldData}
+				continent={selectedContinent}
+			/>
 		{:else}
 			<LayerCake {data} {x} {y} {padding}>
 				<Svg>

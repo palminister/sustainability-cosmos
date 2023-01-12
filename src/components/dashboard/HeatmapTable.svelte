@@ -5,14 +5,24 @@
 		colorAccessor
 	} from "$utils/dataProcessor";
 	import { fade } from "svelte/transition";
+	import { createEventDispatcher } from "svelte";
+	const dispatch = createEventDispatcher();
 
 	export let data;
 	export let continent;
+
 	let sort = "SustainabilityIndex";
 	let rows = formatTableData(data).sort((a, b) => b[sort] - a[sort]);
 	$: filteredRows = filterData("Continent", continent, rows);
-
-	const headers = Object.keys(rows[0]).filter((key) => key !== "Continent");
+	const headers = [
+		"Country",
+		"HumanIndex",
+		"HealthIndex",
+		"EnvironmentIndex",
+		"EconomicsIndex",
+		"PoliticsIndex",
+		"SustainabilityIndex"
+	];
 
 	const handleSort = (e) => {
 		if (sort === e.target.id) {
@@ -47,7 +57,11 @@
 				<div class="row">
 					{#each headers as header}
 						{@const formatHeader = header.replace("Index", "")}
-						<div class="cell">
+						<div
+							class="cell"
+							on:click={(e) => dispatch("click", { e, props: row })}
+							on:keydown={(e) => dispatch("click", { e, props: row })}
+						>
 							{#if header === "Country"}
 								<span style="padding-right: 10px;">{row[header]}</span>
 							{:else}
@@ -98,6 +112,10 @@
 
 	.row {
 		margin-top: 10px;
+	}
+
+	.cell {
+		cursor: pointer;
 	}
 
 	section {

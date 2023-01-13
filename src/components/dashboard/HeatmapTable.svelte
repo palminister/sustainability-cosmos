@@ -93,22 +93,25 @@
 							{:else}
 								{@const bgColor = colorAccessor(row, "", "", formatHeader)}
 								{@const brighter = color(bgColor).brighter(0.3)}
-								{@const darker = color(bgColor).darker(2)}
+								{@const darker = color(bgColor).darker(1.5)}
+								{@const size = 9 + row[header] * 20}
 								<span style="display: none;">{(darker.opacity = 0.3)}</span>
 								<div class="bubble-container">
 									<!-- <span
 										class="axisX"
-										style="border-top: dashed 2px {brighter};"
+										style="border-top: dashed 1px {brighter};"
 									/> -->
 									<!-- <span
 										class="axisY"
-										style="border-right: dashed 2px {brighter};"
+										style="border-right: dashed 1px {brighter};"
 									/> -->
 									<div
 										class="bubble"
 										style="background-color: {bgColor};
 										border: 4px solid {brighter}; 
-										outline: 10px solid {darker};"
+										outline: 10px solid {darker};
+										width: {size}px;
+										height: {size}px;"
 									>
 										<!-- {row[header].toFixed(2)} -->
 									</div>
@@ -126,12 +129,13 @@
 <style>
 	article,
 	header {
-		max-width: 30rem;
+		max-width: 35rem;
 		margin: auto;
 		color: var(--color-purple-light);
 	}
 	header {
-		background-color: rgb(30, 33, 126, 0.2);
+		/* background-color: rgb(30, 33, 126, 0.1); */
+		border-bottom: dashed 1px var(--color-purple-light);
 	}
 	article {
 		display: flex;
@@ -139,22 +143,24 @@
 		overflow: hidden;
 		height: 100%;
 		width: 100%;
+		margin-top: 5px;
 	}
 
 	header,
 	section,
 	.row {
 		display: grid;
-		grid-template-columns: 3fr repeat(6, 1fr);
+		grid-template-columns: 4fr repeat(6, 1fr);
 		align-items: center;
 		text-align: center;
 		width: 100%;
 	}
 
 	.row {
-		padding: 10px 0px 10px 0px;
+		/* padding: 10px 0px 10px 0px; */
 		text-align: right;
 		scroll-snap-align: start;
+		height: 25px;
 	}
 	.row:hover {
 		background-color: rgb(30, 33, 126, 0.5);
@@ -167,6 +173,7 @@
 		position: absolute;
 		right: 15px;
 		transform: translateY(-50%);
+		font-size: 0.9rem;
 	}
 
 	section {
@@ -187,10 +194,10 @@
 		align-items: center;
 		font-weight: 600;
 		cursor: pointer;
-		padding: 12px 0px 12px 0px;
+		padding: 10px 0px 10px 0px;
 	}
 	.table-header:hover {
-		background-color: rgb(30, 33, 126, 0.8);
+		background-color: rgb(30, 33, 126, 0.5);
 	}
 	.arrow-up {
 		width: 0;
@@ -210,13 +217,16 @@
 	}
 
 	.bubble-container {
-		margin: 0px 10px 0px 0px;
+		display: flex;
+		width: 25px;
+		height: 25px;
+		/* margin: 0px 10px 0px 0px; */
 	}
 	.bubble {
 		position: relative;
 		margin: auto;
-		width: 30px;
-		height: 30px;
+		/* width: 30px;
+		height: 30px; */
 		border-radius: 100%;
 		align-items: center;
 		justify-content: center;

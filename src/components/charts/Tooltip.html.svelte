@@ -25,7 +25,8 @@
 		position: absolute;
 		width: auto;
 		border: 1px solid var(--color-gray-300);
-		background: var(--color-white);
+		background: rgb(16, 17, 39, 0.85);
+		color: var(--color-white);
 		transform: translate(-50%, -100%);
 		padding: 0.5em;
 		z-index: var(--z-top);

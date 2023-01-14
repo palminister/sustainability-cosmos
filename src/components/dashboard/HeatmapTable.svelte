@@ -50,7 +50,7 @@
 	};
 </script>
 
-<p>sort by = {sort}</p>
+<!-- <p>sort by = {sort}</p> -->
 <header>
 	{#each headers as header}
 		{@const isCountry = header === "Country"}
@@ -161,9 +161,11 @@
 		text-align: right;
 		scroll-snap-align: start;
 		height: 25px;
+		border-radius: 4px;
 	}
 	.row:hover {
 		background-color: rgb(30, 33, 126, 0.5);
+		/* border-bottom: 1px dashed var(--color-purple-light); */
 	}
 	.cell {
 		cursor: pointer;
@@ -174,6 +176,7 @@
 		right: 15px;
 		transform: translateY(-50%);
 		font-size: 0.9rem;
+		/* color: var(--color-white); */
 	}
 
 	section {
@@ -195,6 +198,7 @@
 		font-weight: 600;
 		cursor: pointer;
 		padding: 10px 0px 10px 0px;
+		border-radius: 4px;
 	}
 	.table-header:hover {
 		background-color: rgb(30, 33, 126, 0.5);

@@ -89,109 +89,172 @@
 </script>
 
 <section>
-	<h2>Force scatterplot</h2>
-	<ButtonSet
-		legend={"Choose"}
-		options={viewOptions}
-		bind:value={selectedView}
-	/>
-	<p>Select index</p>
-	<Svelecte
-		labelField="value"
-		options={indexOptions}
-		bind:value={selectedIndex}
-	/>
-	<p>Select color</p>
-	<Svelecte
-		labelField="value"
-		options={colorOptions}
-		bind:value={selectedColor}
-	/>
-	{#if selectedColor === "Index"}
-		<p>Select color index</p>
-		<Svelecte
-			labelField="value"
-			options={indexOptions}
-			bind:value={selectedColorIndex}
-		/>
-	{/if}
-	<p>Select size</p>
-	<Svelecte
-		labelField="value"
-		options={sizeOptions}
-		bind:value={selectedSize}
-	/>
-	{#if selectedSize === "Index"}
-		<p>Select size index</p>
-		<Svelecte
-			labelField="value"
-			options={indexOptions}
-			bind:value={selectedSizeIndex}
-		/>
-	{/if}
-	{#if selectedSize === "Feature"}
-		<p>Select Feature</p>
-		<Svelecte
-			groupLabelField="groupHeader"
-			groupItemsField="items"
-			labelField="value"
-			options={sizeFeatureOptions}
-			bind:value={selectedSizeFeature}
-		/>
-	{/if}
-	{#if selectedView === "BeeSwarm" || selectedView === "Heatmap"}
-		<p>Select region</p>
-		<Svelecte
-			labelField="value"
-			options={continentOptions}
-			bind:value={selectedContinent}
-		/>
-	{/if}
-
-	<figure>
-		{#if selectedView === "Heatmap"}
-			<HeatmapTable
-				on:click={(event) => console.log("click", event.detail.props)}
-				data={worldData}
-				continent={selectedContinent}
+	<div class="setting-panel">
+		<div class="setting-content">
+			<h3 class="panel-label">Choose the Telescope</h3>
+			<ButtonSet
+				legend={"Choose"}
+				options={viewOptions}
+				bind:value={selectedView}
 			/>
-		{:else}
-			<LayerCake {data} {x} {y} {padding}>
-				<Svg>
-					<AxisX />
-					<AxisY />
-					{#if stdValue}
-						<Deviation {meanValue} {stdValue} />
-					{/if}
-					<ScatterForce
-						on:mousemove={(event) => {
-							evt = hideTooltip = event;
-						}}
-						on:mouseout={() => (hideTooltip = true)}
-						on:click={(event) => console.log("click", event.detail.props)}
+			<h3 class="panel-label">Configure the Settings</h3>
+			<p class="select-label">Select index</p>
+			<Svelecte
+				labelField="value"
+				options={indexOptions}
+				bind:value={selectedIndex}
+			/>
+			<div class="row">
+				<div class="column">
+					<p class="select-label">Select color</p>
+					<Svelecte
+						labelField="value"
+						options={colorOptions}
+						bind:value={selectedColor}
 					/>
-				</Svg>
-				<Html pointerEvents={false}>
-					{#if hideTooltip !== true}
-						<Tooltip {evt} let:detail>
-							{#each Object.entries(detail.props) as [key, value]}
-								{#if key === "Country"}
-									<div class="row"><span>{key}:</span> {value}</div>
-								{/if}
-							{/each}
-						</Tooltip>
-					{/if}
-				</Html>
-			</LayerCake>
-		{/if}
-	</figure>
+				</div>
+				{#if selectedColor === "Index"}
+					<div class="column" style="margin-left: 7px;">
+						<p class="select-label">Select color index</p>
+						<Svelecte
+							labelField="value"
+							options={indexOptions}
+							bind:value={selectedColorIndex}
+						/>
+					</div>
+				{/if}
+			</div>
+			<p class="select-label">Select size</p>
+			<Svelecte
+				labelField="value"
+				options={sizeOptions}
+				bind:value={selectedSize}
+			/>
+			{#if selectedSize === "Index"}
+				<p class="select-label">Select size index</p>
+				<Svelecte
+					labelField="value"
+					options={indexOptions}
+					bind:value={selectedSizeIndex}
+				/>
+			{/if}
+			{#if selectedSize === "Feature"}
+				<p class="select-label">Select Feature</p>
+				<Svelecte
+					groupLabelField="groupHeader"
+					groupItemsField="items"
+					labelField="value"
+					options={sizeFeatureOptions}
+					bind:value={selectedSizeFeature}
+				/>
+			{/if}
+			{#if selectedView === "BeeSwarm" || selectedView === "Heatmap"}
+				<p class="select-label">Select region</p>
+				<Svelecte
+					labelField="value"
+					options={continentOptions}
+					bind:value={selectedContinent}
+				/>
+			{/if}
+		</div>
+	</div>
+
+	<div class="chart">
+		<figure>
+			{#if selectedView === "Heatmap"}
+				<HeatmapTable
+					on:click={(event) => console.log("click", event.detail.props)}
+					data={worldData}
+					continent={selectedContinent}
+				/>
+			{:else}
+				<LayerCake {data} {x} {y} {padding}>
+					<Svg>
+						<AxisX />
+						<AxisY />
+						{#if stdValue}
+							<Deviation {meanValue} {stdValue} />
+						{/if}
+						<ScatterForce
+							on:mousemove={(event) => {
+								evt = hideTooltip = event;
+							}}
+							on:mouseout={() => (hideTooltip = true)}
+							on:click={(event) => console.log("click", event.detail.props)}
+						/>
+					</Svg>
+					<Html pointerEvents={false}>
+						{#if hideTooltip !== true}
+							<Tooltip {evt} let:detail>
+								{#each Object.entries(detail.props) as [key, value]}
+									{#if key === "Country"}
+										<div class="row"><span>{key}:</span> {value}</div>
+									{/if}
+								{/each}
+							</Tooltip>
+						{/if}
+					</Html>
+				</LayerCake>
+			{/if}
+		</figure>
+	</div>
 </section>
 
 <style>
+	section {
+		display: flex;
+		flex-direction: row;
+	}
+	.setting-panel {
+		display: flex;
+		flex-direction: column;
+		width: 447px;
+		padding: 2.5rem;
+		background: rgb(16, 17, 39);
+		background: linear-gradient(
+			0deg,
+			rgba(16, 17, 39, 1) 0%,
+			rgba(27, 30, 128, 1) 100%
+		);
+	}
+	.setting-content {
+		width: 100%;
+		height: 100%;
+	}
+	.panel-label {
+		color: var(--color-white);
+	}
+	.column {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	.row {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+	}
+	.select-label {
+		color: var(--color-white);
+		font-size: 16px;
+		margin: 25px 0 10px 0;
+	}
+	.chart {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100vh;
+		background: rgb(16, 17, 39);
+		background: linear-gradient(
+			0deg,
+			rgba(16, 17, 39, 1) 0%,
+			rgba(20, 23, 84, 1) 100%
+		);
+	}
 	figure {
 		margin: 1rem auto;
-		width: 100%;
+		width: 90%;
 		height: 80vh;
-		background-color: #101127;
 	}
 </style>

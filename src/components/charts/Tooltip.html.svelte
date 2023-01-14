@@ -24,7 +24,8 @@
 	div {
 		position: absolute;
 		width: auto;
-		border: 1px solid var(--color-gray-300);
+		border: 1px solid var(--color-purple-light);
+		border-radius: 4px;
 		background: rgb(16, 17, 39, 0.85);
 		color: var(--color-white);
 		transform: translate(-50%, -100%);

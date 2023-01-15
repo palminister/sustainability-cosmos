@@ -1,6 +1,6 @@
 import factors from "$components/dashboard/factors.csv";
 import rawData from "$components/dashboard/world_data_raw.csv";
-import { interpolateRgb, extent, scaleLog, scaleLinear, group } from "d3";
+import { interpolateRgb, extent, scaleLinear, group } from "d3";
 
 export const viewOptions = [
 	{ value: "Cluster" },
@@ -27,10 +27,20 @@ export const continentOptions = [
 	{ value: "Oceania" }
 ];
 
+export const countryOptions = [
+	{ value: "All" },
+	...rawData.map((d) => ({ value: d.Country }))
+];
+
 export const colorOptions = [
 	{ value: "Continent" },
 	{ value: "Class" },
-	{ value: "Index" }
+	{ value: "Sustainability Index" },
+	{ value: "Human Index" },
+	{ value: "Health Index" },
+	{ value: "Environment Index" },
+	{ value: "Economics Index" },
+	{ value: "Politics Index" }
 ];
 
 export const sizeOptions = [
@@ -70,25 +80,26 @@ export const classColors = {
 };
 
 export const indexColors = {
-	Sustainability: { startColor: colors.dark, endColor: colors.blue },
-	Human: { startColor: colors.dark, endColor: colors.purple },
-	Health: { startColor: colors.dark, endColor: colors.red },
-	Environment: { startColor: colors.dark, endColor: colors.green },
-	Economics: { startColor: colors.dark, endColor: colors.yellow },
-	Politics: { startColor: colors.dark, endColor: colors.orange }
+	SustainabilityIndex: { startColor: colors.dark, endColor: colors.blue },
+	HumanIndex: { startColor: colors.dark, endColor: colors.purple },
+	HealthIndex: { startColor: colors.dark, endColor: colors.red },
+	EnvironmentIndex: { startColor: colors.dark, endColor: colors.green },
+	EconomicsIndex: { startColor: colors.dark, endColor: colors.yellow },
+	PoliticsIndex: { startColor: colors.dark, endColor: colors.orange }
 };
 
-export const colorAccessor = (d, color, key, colorIndex) => {
+export const colorAccessor = (d, color, key) => {
+	color = color.replace(" ", "");
 	if (color === "Continent") {
 		return continentColors[d.Continent];
 	} else if (color === "Class") {
 		return classColors[d[key + "Class"]];
 	} else {
 		const colorInterpolation = interpolateRgb(
-			indexColors[colorIndex].startColor,
-			indexColors[colorIndex].endColor
+			indexColors[color].startColor,
+			indexColors[color].endColor
 		);
-		return colorInterpolation(d[colorIndex + "Index"]);
+		return colorInterpolation(d[color]);
 	}
 };
 
@@ -107,7 +118,6 @@ export const sizeRange = [5, 15];
 export const formatSNEData = (
 	key,
 	color,
-	colorIndex,
 	size,
 	sizeIndex,
 	sizeFeature,
@@ -117,7 +127,6 @@ export const formatSNEData = (
 	let sizeDomain = extent(data, (d) =>
 		sizeAccessor(d, size, sizeIndex, sizeFeature)
 	);
-	let logScale = scaleLog().domain(sizeDomain).range(sizeRange);
 	let linearScale = scaleLinear().domain(sizeDomain).range(sizeRange);
 	return data.map((d, index) => {
 		return {
@@ -126,11 +135,8 @@ export const formatSNEData = (
 			Continent: d.Continent,
 			SNE_X: +d[tsneKey + "_X"],
 			SNE_Y: +d[tsneKey + "_Y"],
-			color: colorAccessor(d, color, key, colorIndex),
-			size:
-				size === "GDP"
-					? logScale(sizeAccessor(d, size, sizeIndex, sizeFeature))
-					: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
+			color: colorAccessor(d, color, key),
+			size: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
 			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0
 		};
 	});
@@ -139,7 +145,6 @@ export const formatSNEData = (
 export const formatBeeSwarmData = (
 	key,
 	color,
-	colorIndex,
 	size,
 	sizeIndex,
 	sizeFeature,
@@ -149,7 +154,6 @@ export const formatBeeSwarmData = (
 	let sizeDomain = extent(data, (d) =>
 		sizeAccessor(d, size, sizeIndex, sizeFeature)
 	);
-	let logScale = scaleLog().domain(sizeDomain).range(sizeRange);
 	let linearScale = scaleLinear().domain(sizeDomain).range(sizeRange);
 	return data.map((d, index) => {
 		return {
@@ -158,11 +162,8 @@ export const formatBeeSwarmData = (
 			Continent: d.Continent,
 			BeeSwarmX: 0,
 			BeeSwarmY: +d[beeSwarmKey],
-			color: colorAccessor(d, color, key, colorIndex),
-			size:
-				size === "GDP"
-					? logScale(sizeAccessor(d, size, sizeIndex, sizeFeature))
-					: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
+			color: colorAccessor(d, color, key),
+			size: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
 			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0
 		};
 	});

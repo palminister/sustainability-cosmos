@@ -50,7 +50,6 @@
 	};
 </script>
 
-<!-- <p>sort by = {sort}</p> -->
 <header>
 	{#each headers as header}
 		{@const isCountry = header === "Country"}
@@ -58,7 +57,7 @@
 		{@const formatHeader = isCountry ? header : header.slice(0, 3)}
 		{@const textAlign = isCountry ? "right" : "center"}
 		{@const paddingRight = isCountry ? "5px" : "0"}
-		{@const color = isSelected ? "#ffffff" : "#C197F6"}
+		{@const color = isSelected ? "#ffffff" : "#E5FF7B"}
 		{@const toggleClass = toggle[sort] ? "arrow-up" : "arrow-down"}
 		<div
 			id={header}
@@ -82,7 +81,6 @@
 			{#each filteredRows as row, index (row.Country)}
 				<div class="row" id={row.Country}>
 					{#each headers as header}
-						{@const formatHeader = header.replace("Index", "")}
 						<div
 							class="cell"
 							on:click={(e) => dispatch("click", { e, props: row })}
@@ -91,20 +89,12 @@
 							{#if header === "Country"}
 								<span class="label">{row[header]}</span>
 							{:else}
-								{@const bgColor = colorAccessor(row, "", "", formatHeader)}
+								{@const bgColor = colorAccessor(row, header, "")}
 								{@const brighter = color(bgColor).brighter(0.3)}
 								{@const darker = color(bgColor).darker(1.5)}
 								{@const size = 9 + row[header] * 20}
 								<span style="display: none;">{(darker.opacity = 0.3)}</span>
 								<div class="bubble-container">
-									<!-- <span
-										class="axisX"
-										style="border-top: dashed 1px {brighter};"
-									/> -->
-									<!-- <span
-										class="axisY"
-										style="border-right: dashed 1px {brighter};"
-									/> -->
 									<div
 										class="bubble"
 										style="background-color: {bgColor};
@@ -135,7 +125,8 @@
 	}
 	header {
 		/* background-color: rgb(30, 33, 126, 0.1); */
-		border-bottom: dashed 1px var(--color-purple-light);
+		/* border-bottom: dashed 1px var(--color-purple-light); */
+		border-bottom: dashed 1px var(--color-white);
 	}
 	article {
 		display: flex;
@@ -175,7 +166,7 @@
 		position: absolute;
 		right: 15px;
 		transform: translateY(-50%);
-		font-size: 0.9rem;
+		font-size: var(--14px);
 		/* color: var(--color-white); */
 	}
 
@@ -195,6 +186,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		font-size: var(--14px);
 		font-weight: 600;
 		cursor: pointer;
 		padding: 10px 0px 10px 0px;
@@ -242,24 +234,6 @@
 		left: 40%;
 		z-index: 10;
 		transform: translate(-50%, -50%);
-		font-size: 0.7rem;
 		color: var(--color-white);
-	}
-	.axisX {
-		position: absolute;
-		width: 100%;
-		top: 50%;
-		left: 0;
-		transform: translate(-10%, -50%);
-		z-index: 1;
-	}
-	.axisY {
-		position: absolute;
-		width: 100%;
-		height: 150%;
-		top: 0;
-		left: -50%;
-		transform: translate(-9%, -15%);
-		z-index: 1;
 	}
 </style>

@@ -11,6 +11,7 @@
 	const { data, xGet, yGet, width } = getContext("LayerCake");
 	const dispatch = createEventDispatcher();
 
+	export let selectedCountry;
 	export let xStrength = 0.5;
 	export let yStrength = 0.5;
 	const random = randomUniform(-800, 800);
@@ -65,15 +66,23 @@
 		{@const id = d.Country}
 		{@const darker = color(d.color).darker(2)}
 		{@const r = d.size}
-		<circle
-			class="plot-stroke"
-			id={id + "-stroke"}
-			{cx}
-			{cy}
-			r={r + 10}
-			fill={darker}
-			opacity="0.2"
-		/>
+		{@const opacity =
+			selectedCountry === "All"
+				? 0.2
+				: d.Country === selectedCountry
+				? 0.2
+				: 0.05}
+		{#if d.isSize}
+			<circle
+				class="plot-stroke"
+				id={id + "-stroke"}
+				{cx}
+				{cy}
+				r={r + 10}
+				fill={darker}
+				{opacity}
+			/>
+		{/if}
 	{/each}
 	{#each nodes as d}
 		{@const cx = d.x}
@@ -82,6 +91,8 @@
 		{@const fill = d.color}
 		{@const brighter = color(d.color).brighter(0.2)}
 		{@const r = d.size}
+		{@const opacity =
+			selectedCountry === "All" ? 1 : d.Country === selectedCountry ? 1 : 0.1}
 		{#if d.isSize}
 			<circle
 				class="plot"
@@ -94,6 +105,7 @@
 				{cy}
 				{r}
 				{fill}
+				{opacity}
 				clip-path="circle()"
 				stroke={brighter}
 				stroke-width={6}
@@ -109,6 +121,7 @@
 				{cx}
 				{cy}
 				{r}
+				{opacity}
 				fill="transparent"
 				clip-path="circle()"
 				stroke={fill}
@@ -124,5 +137,9 @@
 	}
 	circle {
 		transition: all 0.7s ease-out;
+	}
+	g,
+	circle:focus {
+		outline: none;
 	}
 </style>

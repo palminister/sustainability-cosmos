@@ -35,7 +35,9 @@
 
 	<link rel="canonical" href="{url}/" />
 
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	{#each preloadFont as href}
-		<link rel="preload" {href} as="font" type="font/woff2" crossorigin />
+		<link {href} rel="stylesheet" />
 	{/each}
 </svelte:head>

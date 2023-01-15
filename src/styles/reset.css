@@ -18,6 +18,11 @@ h5,
 h6,
 p {
 	margin: 16px 0;
+	letter-spacing: 2px;
+}
+
+label {
+	letter-spacing: 1px;
 }
 
 mark {

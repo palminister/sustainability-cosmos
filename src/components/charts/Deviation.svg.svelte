@@ -22,13 +22,13 @@
 
 <g class="markline-y" transform="translate({-$padding.left}, 0)">
 	<rect width="100%" height={Math.abs(y - upper) * 2} x="0" y={upper} />
-	<text transform="translate({$width - ($padding.right + 10)}, {y - 10})"
-		>mean={$meanTweened.toFixed(3)}</text
+	<text class="mean" transform="translate({$padding.right + 30}, {y - 10})"
+		>average={$meanTweened.toFixed(3)}</text
 	>
-	<text transform="translate({$width - ($padding.right + 10)}, {y + 20})"
+	<text transform="translate({$padding.right + 30}, {y + 20})"
 		>std={$stdTweened.toFixed(3)}</text
 	>
-	<line x2="100%" transform="translate(0, {y})" />
+	<line x2="100%" class="mean-line" transform="translate(0, {y})" />
 	<line x2="100%" transform="translate(0, {upper})" />
 	<line x2="100%" transform="translate(0, {lower})" />
 </g>
@@ -49,5 +49,14 @@
 	line {
 		stroke-dasharray: 4px 4px;
 		stroke: var(--color-purple-light);
+	}
+
+	.mean {
+		fill: var(--color-yellow);
+	}
+
+	.mean-line {
+		stroke: var(--color-yellow);
+		stroke-width: 0.1rem;
 	}
 </style>

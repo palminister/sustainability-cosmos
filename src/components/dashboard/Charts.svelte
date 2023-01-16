@@ -27,6 +27,8 @@
 	import HeatmapTable from "$components/dashboard/HeatmapTable.svelte";
 	import WGSLogo from "$components/dashboard/WGSLogo.svg.svelte";
 	import QuestionMark from "$components/dashboard/QuestionMark.svg.svelte";
+	import Arrow from "$components/dashboard/Arrow.svg.svelte";
+	import SizeLegend from "$components/dashboard/SizeLegend.svg.svelte";
 
 	let selectedView = viewOptions[0].value;
 	let selectedIndex = indexOptions[0].value;
@@ -88,6 +90,11 @@
 		];
 	}
 	$: console.log("data", data);
+
+	let panelToggle = true;
+	let handleToggle = () => {
+		panelToggle = !panelToggle;
+	};
 </script>
 
 <section>
@@ -102,9 +109,21 @@
 		<h5 class="panel-label">MODE</h5>
 		<ModeSet options={viewOptions} bind:value={selectedView} />
 	</div>
-	<div class="right-panel">
+	<div
+		class="arrow-icon"
+		style="transform: translate(0, -50%) rotate({panelToggle ? -90 : 90}deg);"
+		on:click={handleToggle}
+		on:keydown={handleToggle}
+	>
+		<Arrow />
+	</div>
+	<div
+		class="right-panel"
+		style="transform: translate({panelToggle ? 0 : 150}%, -50%)"
+	>
 		<h5 class="panel-label" style="margin-top: 0">COUNTRY</h5>
 		<Svelecte
+			clearable={true}
 			labelField="value"
 			options={countryOptions}
 			bind:value={selectedCountry}
@@ -122,6 +141,7 @@
 		{/if}
 		{#if selectedSize === "Feature"}
 			<Svelecte
+				clearable={true}
 				groupLabelField="groupHeader"
 				groupItemsField="items"
 				labelField="value"
@@ -129,6 +149,9 @@
 				bind:value={selectedSizeFeature}
 			/>
 		{/if}
+	</div>
+	<div class="bottom-panel">
+		<SizeLegend {data} width={120} height={40} />
 	</div>
 	<!--<div class="setting-panel">
 		 <div class="setting-content">
@@ -200,7 +223,8 @@
 				<HeatmapTable
 					on:click={(event) => console.log("click", event.detail.props)}
 					data={worldData}
-					continent={selectedContinent}
+					{selectedContinent}
+					{selectedCountry}
 				/>
 			{:else}
 				<LayerCake {data} {x} {y} {padding}>
@@ -248,22 +272,36 @@
 			rgba(20, 23, 84, 1) 100%
 		);
 	}
-	/* .setting-panel {
-		display: flex;
-		flex-direction: column;
-		width: 447px;
-		padding: 2rem 2.5rem 2rem 2.5rem;
-		background: rgb(16, 17, 39);
-		background: linear-gradient(
-			0deg,
-			rgba(16, 17, 39, 1) 0%,
-			rgba(27, 30, 128, 1) 100%
-		);
+	:global(.svelecte-control, .sv-control) {
+		--sv-bg: var(--color-yellow) !important;
+		--sv-color: var(--color-gray-1000) !important;
+		--sv-item-active-bg: var(--color-white) !important;
+		--sv-border: 2px solid var(--color-purple-dark) !important;
+		--sv-active-border: 2px solid var(--color-purple-dark) !important;
+		border-radius: 4px !important;
+		font-size: var(--12px);
+		font-weight: 700;
+		letter-spacing: 1px !important;
+		--sv-min-height: 34px;
+		height: 34px;
 	}
-	.setting-content {
-		width: 100%;
-		height: 100%;
-	} */
+	:global(.optgroup-header) {
+		border: 2px dashed var(--color-purple-light);
+		color: var(--color-purple-light) !important;
+	}
+	:global(.indicator-icon) {
+		background-color: var(--color-purple-dark) !important;
+		border: 1px solid var(--color-purple-light);
+		color: var(--color-yellow);
+		border-radius: 50%;
+	}
+	:global(.indicator-icon:hover) {
+		opacity: 0.85;
+		cursor: pointer;
+	}
+	:global(.indicator-separator) {
+		background-color: var(--color-purple-dark) !important;
+	}
 	.panel-label {
 		color: var(--color-yellow);
 		font-weight: 700;
@@ -271,6 +309,7 @@
 
 	.top-panel {
 		position: absolute;
+		z-index: 8;
 		width: 100%;
 	}
 
@@ -285,6 +324,7 @@
 
 	.left-panel {
 		position: absolute;
+		z-index: 10;
 		top: 50%;
 		transform: translateY(-50%);
 		text-align: center;
@@ -296,34 +336,34 @@
 		z-index: 10;
 		top: 50%;
 		right: 0;
-		transform: translateY(-50%);
 		text-align: center;
 		margin-right: var(--20px);
 		width: 250px;
-		padding: 2rem;
-		border-radius: 8px;
+		padding: 1rem;
+		border-radius: 4px;
 		background: rgb(16, 17, 39);
 		background: linear-gradient(
 			0deg,
-			rgba(16, 17, 39, 0.6) 0%,
-			rgba(27, 30, 128, 0.6) 100%
+			rgba(16, 17, 39, 0.65) 0%,
+			rgba(27, 30, 128, 0.65) 100%
 		);
+		transition: all 0.5s cubic-bezier(0.47, 0, 0.05, 1);
 	}
-
-	.column {
-		display: flex;
-		flex-direction: column;
+	.arrow-icon {
+		position: absolute;
+		z-index: 15;
+		top: 50%;
+		right: 30px;
+		cursor: pointer;
+	}
+	.arrow-icon:hover {
+		opacity: 0.9;
+	}
+	.bottom-panel {
+		position: absolute;
+		z-index: 10;
+		bottom: 0;
 		width: 100%;
-	}
-	.row {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
-	}
-	.select-label {
-		color: var(--color-white);
-		font-size: var(--14px);
-		margin: 20px 0 10px 0;
 	}
 
 	.chart {
@@ -337,5 +377,6 @@
 		margin: 1rem auto;
 		width: 75%;
 		height: 70%;
+		/* transform: translateX(-40px); */
 	}
 </style>

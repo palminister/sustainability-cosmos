@@ -65,7 +65,7 @@
 		{@const cy = d.y}
 		{@const id = d.Country}
 		{@const darker = color(d.color).darker(2)}
-		{@const r = d.size}
+		{@const r = d.size ? d.size + 10 : 0}
 		{@const opacity =
 			selectedCountry === "All"
 				? 0.2
@@ -78,7 +78,7 @@
 				id={id + "-stroke"}
 				{cx}
 				{cy}
-				r={r + 10}
+				{r}
 				fill={darker}
 				{opacity}
 			/>
@@ -90,7 +90,7 @@
 		{@const id = d.Country}
 		{@const fill = d.color}
 		{@const brighter = color(d.color).brighter(0.2)}
-		{@const r = d.size}
+		{@const r = d.size ? d.size : 0}
 		{@const opacity =
 			selectedCountry === "All" ? 1 : d.Country === selectedCountry ? 1 : 0.1}
 		{#if d.isSize}

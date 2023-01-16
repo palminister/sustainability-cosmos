@@ -10,11 +10,16 @@
 	const dispatch = createEventDispatcher();
 
 	export let data;
-	export let continent;
+	export let selectedContinent;
+	export let selectedCountry;
 
 	let sort = "SustainabilityIndex";
 	let rows = formatTableData(data).sort((a, b) => b[sort] - a[sort]);
-	$: filteredRows = filterData("Continent", continent, rows);
+	$: filteredRows = filterData(
+		"Country",
+		selectedCountry,
+		filterData("Continent", selectedContinent, rows)
+	);
 	const headers = [
 		"Country",
 		"HealthIndex",
@@ -121,7 +126,6 @@
 	header {
 		max-width: 35rem;
 		margin: auto;
-		color: var(--color-purple-light);
 	}
 	header {
 		/* background-color: rgb(30, 33, 126, 0.1); */
@@ -135,6 +139,7 @@
 		height: 100%;
 		width: 100%;
 		margin-top: 5px;
+		color: var(--color-purple-light);
 	}
 
 	header,
@@ -156,6 +161,7 @@
 	}
 	.row:hover {
 		background-color: rgb(30, 33, 126, 0.5);
+		color: var(--color-yellow);
 		/* border-bottom: 1px dashed var(--color-purple-light); */
 	}
 	.cell {

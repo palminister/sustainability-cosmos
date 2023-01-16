@@ -128,6 +128,10 @@
 		display: block;
 	}
 
+	input[type="radio"]:hover + label {
+		color: var(--color-white);
+	}
+
 	input[type="radio"]:disabled + label {
 		color: var(--color-gray-700);
 		background: var(--color-gray-500);

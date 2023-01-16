@@ -137,7 +137,8 @@ export const formatSNEData = (
 			SNE_Y: +d[tsneKey + "_Y"],
 			color: colorAccessor(d, color, key),
 			size: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
-			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0
+			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0,
+			sizeDomain
 		};
 	});
 };
@@ -164,7 +165,8 @@ export const formatBeeSwarmData = (
 			BeeSwarmY: +d[beeSwarmKey],
 			color: colorAccessor(d, color, key),
 			size: linearScale(sizeAccessor(d, size, sizeIndex, sizeFeature)),
-			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0
+			isSize: sizeAccessor(rawData[index], size, sizeIndex, sizeFeature) !== 0,
+			sizeDomain
 		};
 	});
 };

@@ -5,7 +5,6 @@
 		colorAccessor
 	} from "$utils/dataProcessor";
 	import { color } from "d3";
-	import { fade } from "svelte/transition";
 	import { createEventDispatcher } from "svelte";
 	const dispatch = createEventDispatcher();
 
@@ -81,7 +80,7 @@
 	{/each}
 </header>
 {#key filteredRows}
-	<article transition:fade={{ duration: 200 }}>
+	<article>
 		<section>
 			{#each filteredRows as row, index (row.Country)}
 				<div class="row" id={row.Country}>
@@ -140,6 +139,15 @@
 		width: 100%;
 		margin-top: 5px;
 		color: var(--color-purple-light);
+		animation: fadeIn 0.5s ease-in-out;
+	}
+	@keyframes fadeIn {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
 	}
 
 	header,

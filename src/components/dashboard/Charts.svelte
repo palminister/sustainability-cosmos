@@ -7,6 +7,9 @@
 		countryOptions,
 		continentOptions,
 		colorOptions,
+		continentColors,
+		classColors,
+		classOptions,
 		sizeOptions,
 		sizeFeatureOptions,
 		filterData,
@@ -19,6 +22,7 @@
 	import ModeSet from "$components/dashboard/ModeSet.svelte";
 	import IndexSet from "$components/dashboard/IndexSet.svelte";
 	import RadioSet from "$components/dashboard/RadioSet.svelte";
+	import ColorSet from "$components/dashboard/ColorSet.svelte";
 	import AxisX from "$components/charts/AxisX.svg.svelte";
 	import AxisY from "$components/charts/AxisY.svg.svelte";
 	import ScatterForce from "$components/dashboard/ScatterForce.svelte";
@@ -29,11 +33,13 @@
 	import QuestionMark from "$components/dashboard/QuestionMark.svg.svelte";
 	import Arrow from "$components/dashboard/Arrow.svg.svelte";
 	import SizeLegend from "$components/dashboard/SizeLegend.svg.svelte";
+	import NullSizeLegend from "$components/dashboard/NullSizeLegend.svelte";
 
 	let selectedView = viewOptions[0].value;
 	let selectedIndex = indexOptions[0].value;
 	let selectedCountry = countryOptions[0].value;
 	let selectedContinent = continentOptions[0].value;
+	let selectedClass = classOptions[0].value;
 	let selectedColor = colorOptions[0].value;
 	let selectedSize = sizeOptions[0].value;
 	let selectedSizeIndex = indexOptions[0].value;
@@ -90,6 +96,7 @@
 		];
 	}
 	$: console.log("data", data);
+	$: console.log("selectedContinent", selectedContinent);
 
 	let panelToggle = true;
 	let handleToggle = () => {
@@ -151,6 +158,20 @@
 		{/if}
 	</div>
 	<div class="bottom-panel">
+		{#if selectedColor === "Continent"}
+			<ColorSet
+				color={continentColors}
+				options={continentOptions}
+				bind:value={selectedContinent}
+			/>
+		{:else if selectedColor === "Class"}
+			<ColorSet
+				color={classColors}
+				options={classOptions}
+				bind:value={selectedClass}
+			/>
+		{/if}
+		<NullSizeLegend />
 		<SizeLegend {data} width={120} height={40} />
 	</div>
 	<!--<div class="setting-panel">
@@ -241,6 +262,7 @@
 							on:mouseout={() => (hideTooltip = true)}
 							on:click={(event) => console.log("click", event.detail.props)}
 							{selectedCountry}
+							{selectedContinent}
 						/>
 					</Svg>
 					<Html pointerEvents={false}>

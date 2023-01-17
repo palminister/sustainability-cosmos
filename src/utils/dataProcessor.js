@@ -27,6 +27,12 @@ export const continentOptions = [
 	{ value: "Oceania" }
 ];
 
+export const classOptions = [
+	{ value: "All" },
+	{ value: "High" },
+	{ value: "Low" }
+];
+
 export const countryOptions = [
 	{ value: "All" },
 	...rawData.map((d) => ({ value: d.Country }))

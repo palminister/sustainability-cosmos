@@ -12,6 +12,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let selectedCountry;
+	export let selectedContinent;
 	export let xStrength = 0.5;
 	export let yStrength = 0.5;
 	const random = randomUniform(-800, 800);
@@ -54,6 +55,46 @@
 	};
 
 	$: $data, $width, updatePositions();
+
+	const getOpacity = (
+		d,
+		isAllCountry,
+		isAllContinent,
+		selectedCountry,
+		selectedContinent,
+		dim,
+		bright
+	) => {
+		// Check if all countries and continents are selected
+		if (isAllCountry && isAllContinent) {
+			return bright;
+		}
+		// check if all countries are selected
+		else if (isAllCountry) {
+			// check if the selected continent is the same as current country
+			if (selectedContinent === d.Continent) {
+				return bright;
+			} else {
+				return dim;
+			}
+		}
+		// check if all continents are selected
+		else if (isAllContinent) {
+			// check if the selected country is the same as current country
+			if (selectedCountry === d.Country) {
+				return bright;
+			} else {
+				return dim;
+			}
+		} else {
+			// check if the selected country or continent is the same as current country or continent
+			if (selectedCountry === d.Country || selectedContinent === d.Continent) {
+				return bright;
+			} else {
+				return dim;
+			}
+		}
+	};
 </script>
 
 <g
@@ -65,13 +106,20 @@
 		{@const cy = d.y}
 		{@const id = d.Country}
 		{@const darker = color(d.color).darker(2)}
+		{@const stroke = selectedCountry === d.Country ? "white" : "none"}
 		{@const r = d.size ? d.size + 10 : 0}
-		{@const opacity =
-			selectedCountry === "All"
-				? 0.2
-				: d.Country === selectedCountry
-				? 0.2
-				: 0.05}
+		{@const isAllCountry = selectedCountry === "All"}
+		{@const isAllContinent = selectedContinent === "All"}
+		{@const opacity = getOpacity(
+			d,
+			isAllCountry,
+			isAllContinent,
+			selectedCountry,
+			selectedContinent,
+			0.05,
+			0.2
+		)}
+		<span style="display: none;">{(darker.opacity = opacity)}</span>
 		{#if d.isSize}
 			<circle
 				class="plot-stroke"
@@ -80,7 +128,8 @@
 				{cy}
 				{r}
 				fill={darker}
-				{opacity}
+				{stroke}
+				stroke-width="2"
 			/>
 		{/if}
 	{/each}
@@ -89,10 +138,20 @@
 		{@const cy = d.y}
 		{@const id = d.Country}
 		{@const fill = d.color}
-		{@const brighter = color(d.color).brighter(0.2)}
+		{@const brighter =
+			selectedCountry === d.Country ? "white" : color(d.color).brighter(0.2)}
 		{@const r = d.size ? d.size : 0}
-		{@const opacity =
-			selectedCountry === "All" ? 1 : d.Country === selectedCountry ? 1 : 0.1}
+		{@const isAllCountry = selectedCountry === "All"}
+		{@const isAllContinent = selectedContinent === "All"}
+		{@const opacity = getOpacity(
+			d,
+			isAllCountry,
+			isAllContinent,
+			selectedCountry,
+			selectedContinent,
+			0.1,
+			1
+		)}
 		{#if d.isSize}
 			<circle
 				class="plot"

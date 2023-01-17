@@ -17,7 +17,7 @@
 	$: isTop = legendPosition === "top";
 </script>
 
-<div class="button-set">
+<div class="index-set">
 	<div
 		id={`group-${id}`}
 		class="group"
@@ -48,7 +48,7 @@
 </div>
 
 <style>
-	.button-set {
+	.index-set {
 		display: inline-block;
 		margin-bottom: 4px;
 	}

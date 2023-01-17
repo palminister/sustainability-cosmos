@@ -17,7 +17,7 @@
 	$: isTop = legendPosition === "top";
 </script>
 
-<div class="button-set">
+<div class="radio-set">
 	<div
 		id={`group-${id}`}
 		class="group"
@@ -49,7 +49,7 @@
 </div>
 
 <style>
-	.button-set {
+	.radio-set {
 		display: inline-block;
 		margin-bottom: 4px;
 		width: 100%;

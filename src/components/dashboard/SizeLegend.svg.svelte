@@ -4,8 +4,8 @@
 	export let data;
 	export let width;
 	export let height;
-	export let fill = "#E5FF7B";
-	export let stroke = "#1e217e";
+	export let fill = "none";
+	export let stroke = "#E5FF7B";
 	export let strokeWidth = 1;
 
 	$: extent = data[0].sizeDomain;

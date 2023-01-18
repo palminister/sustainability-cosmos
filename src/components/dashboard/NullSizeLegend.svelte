@@ -15,7 +15,7 @@
 			r={7}
 			{fill}
 			{stroke}
-			stroke-width={3}
+			stroke-width={strokeWidth}
 		/>
 		<text x={r + strokeWidth + 20} y={height - r}>no data</text>
 	</g>

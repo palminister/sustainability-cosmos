@@ -121,8 +121,9 @@
 	}
 
 	input[type="radio"]:disabled + label {
-		color: var(--color-gray-700);
-		background: var(--color-gray-500);
+		color: rgb(247, 247, 247);
+		background: rgb(247, 247, 247, 0.2);
+		opacity: 0.2;
 		cursor: not-allowed;
 	}
 </style>

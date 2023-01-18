@@ -52,7 +52,7 @@
 							</span>
 							{#if option.value === "Cluster"}
 								<Cluster />
-							{:else if option.value === "BeeSwarm"}
+							{:else if option.value === "Average"}
 								<BeeSwarm />
 							{:else}
 								<Heatmap />

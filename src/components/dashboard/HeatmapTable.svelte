@@ -1,7 +1,8 @@
 <script>
 	import {
 		formatTableData,
-		filterData,
+		isAll,
+		filterContinentCountry,
 		colorAccessor
 	} from "$utils/dataProcessor";
 	import { color } from "d3";
@@ -14,10 +15,10 @@
 
 	let sort = "SustainabilityIndex";
 	let rows = formatTableData(data).sort((a, b) => b[sort] - a[sort]);
-	$: filteredRows = filterData(
-		"Country",
+	$: filteredRows = filterContinentCountry(
+		selectedContinent,
 		selectedCountry,
-		filterData("Continent", selectedContinent, rows)
+		rows
 	);
 	const headers = [
 		"Country",
@@ -91,7 +92,12 @@
 							on:keydown={(e) => dispatch("click", { e, props: row })}
 						>
 							{#if header === "Country"}
-								<span class="label">{row[header]}</span>
+								<span
+									class="label"
+									style="color: {row.Country === selectedCountry
+										? '#ffffff'
+										: '#b37afa'}">{row[header]}</span
+								>
 							{:else}
 								{@const bgColor = colorAccessor(row, header, "")}
 								{@const brighter = color(bgColor).brighter(0.3)}
@@ -125,6 +131,7 @@
 	header {
 		max-width: 35rem;
 		margin: auto;
+		transform: translateY(-15px);
 	}
 	header {
 		/* background-color: rgb(30, 33, 126, 0.1); */
@@ -139,7 +146,8 @@
 		width: 100%;
 		margin-top: 5px;
 		color: var(--color-purple-light);
-		animation: fadeIn 0.5s ease-in-out;
+		animation: fadeIn 0.4s ease-in-out;
+		border-bottom: dashed 1px var(--color-white);
 	}
 	@keyframes fadeIn {
 		0% {

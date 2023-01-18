@@ -298,7 +298,7 @@
 	</div> -->
 
 	<div class="chart">
-		<figure>
+		<figure style="transform: translateX({panelToggle ? 0 : 5}%);">
 			{#if selectedView === "Heatmap"}
 				<HeatmapTable
 					on:click={handleModal}
@@ -479,6 +479,7 @@
 		margin: 1rem auto;
 		width: 75%;
 		height: 70%;
+		transition: all 1s cubic-bezier(0.47, 0, 0.05, 1);
 		/* transform: translateX(-40px); */
 	}
 

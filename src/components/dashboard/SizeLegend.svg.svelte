@@ -1,5 +1,5 @@
 <script>
-	import { sizeRange } from "$utils/dataProcessor";
+	import { sizeRange, numberFormatter } from "$utils/dataProcessor";
 
 	export let data;
 	export let width;
@@ -11,21 +11,6 @@
 	$: extent = data[0].sizeDomain;
 	$: [smallest, largest] = extent;
 	let [smallestRadius, largestRadius] = sizeRange;
-
-	const numberFormatter = (number) => {
-		let absNum = Math.abs(number);
-		if (absNum > 1000000000) {
-			return `${Math.round(number / 1000000000).toLocaleString()} B`;
-		} else if (absNum > 1000000) {
-			return `${Math.round(number / 1000000).toLocaleString()} M`;
-		} else if (absNum > 1000) {
-			return `${Math.round(number / 1000).toLocaleString()} K`;
-		} else if (absNum <= 1000) {
-			return number.toFixed(1).toLocaleString();
-		} else {
-			return number;
-		}
-	};
 </script>
 
 <svg {width} {height}>

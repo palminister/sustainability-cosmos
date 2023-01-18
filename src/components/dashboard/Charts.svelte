@@ -15,7 +15,9 @@
 		sizeFeatureOptions,
 		filterContinentCountry,
 		formatSNEData,
-		formatBeeSwarmData
+		formatBeeSwarmData,
+		isFactor,
+		numberFormatter
 	} from "$utils/dataProcessor";
 
 	import worldData from "$components/dashboard/world_data_imputed.csv";
@@ -35,6 +37,7 @@
 	import SizeLegend from "$components/dashboard/SizeLegend.svg.svelte";
 	import NullSizeLegend from "$components/dashboard/NullSizeLegend.svelte";
 	import ColorLegend from "$components/dashboard/ColorLegend.svelte";
+	import Modal from "$components/dashboard/Modal.svelte";
 
 	let selectedView = viewOptions[0].value;
 	let selectedIndex = indexOptions[0].value;
@@ -106,6 +109,14 @@
 	let handleToggle = () => {
 		panelToggle = !panelToggle;
 	};
+
+	let showModal = false;
+	let detail;
+	let handleModal = (e) => {
+		detail = e.detail.props;
+		showModal = true;
+		// console.log("click", detail);
+	};
 </script>
 
 <section>
@@ -163,6 +174,7 @@
 				/>
 			{/if}
 			{#if selectedSize === "Feature"}
+				<!-- <div on:mousemove={(e) => console.log(e.target)}> -->
 				<Svelecte
 					clearable={true}
 					groupLabelField="groupHeader"
@@ -171,6 +183,7 @@
 					options={sizeFeatureOptions}
 					bind:value={selectedSizeFeature}
 				/>
+				<!-- </div> -->
 			{/if}
 		{/if}
 	</div>
@@ -198,6 +211,28 @@
 			{/if}
 		</div>
 	</div>
+	{#if showModal}
+		<Modal on:close={() => (showModal = false)}>
+			<h5 class="panel-label" slot="header">{detail.Country.toUpperCase()}</h5>
+			<div class="sub-label" slot="sub-header">
+				<p>Country code: {detail["ISO Country code"]}</p>
+				<p>Continent: {detail.Continent}</p>
+			</div>
+			<div class="table-container">
+				<table>
+					{#each Object.entries(detail) as [key, value]}
+						{#if isFactor(key)}
+							<tr>
+								<td>{key}</td>
+								<td>{+value === 0 ? "" : numberFormatter(+value)}</td>
+							</tr>
+						{/if}
+					{/each}
+					<table />
+				</table>
+			</div>
+		</Modal>
+	{/if}
 	<!--<div class="setting-panel">
 		 <div class="setting-content">
 			<h5 class="panel-label">Configure the Settings</h5>
@@ -266,7 +301,7 @@
 		<figure>
 			{#if selectedView === "Heatmap"}
 				<HeatmapTable
-					on:click={(event) => console.log("click", event.detail.props)}
+					on:click={handleModal}
 					data={worldData}
 					{selectedContinent}
 					{selectedCountry}
@@ -284,7 +319,7 @@
 								evt = hideTooltip = event;
 							}}
 							on:mouseout={() => (hideTooltip = true)}
-							on:click={(event) => console.log("click", event.detail.props)}
+							on:click={handleModal}
 							{selectedCountry}
 							{selectedContinent}
 						/>
@@ -334,6 +369,9 @@
 	:global(.sv-item-content) {
 		color: var(--color-purple-dark) !important;
 	}
+	/* :global(.sv-item-content:hover) {
+		color: var(--color-purple-light) !important;
+	} */
 	:global(.optgroup-header) {
 		border: 2px dashed var(--color-purple-light);
 		color: var(--color-purple-light) !important;
@@ -354,6 +392,11 @@
 	.panel-label {
 		color: var(--color-yellow);
 		font-weight: 700;
+	}
+	.sub-label {
+		color: var(--color-yellow);
+		font-size: var(--12px);
+		line-height: 0.5rem;
 	}
 
 	.top-panel {
@@ -437,5 +480,25 @@
 		width: 75%;
 		height: 70%;
 		/* transform: translateX(-40px); */
+	}
+
+	.table-container {
+		width: 100%;
+		height: 213px;
+		overflow-y: scroll;
+		scroll-snap-type: y mandatory;
+	}
+	table,
+	td {
+		font-size: var(--12px);
+		color: var(--color-white);
+		letter-spacing: 2px;
+		scroll-snap-align: start;
+	}
+	td {
+		padding: 10px;
+	}
+	tr:nth-child(odd) {
+		background-color: rgb(179, 122, 250, 0.13);
 	}
 </style>

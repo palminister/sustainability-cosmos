@@ -61,6 +61,12 @@ export const sizeFeatureOptions = [...factorsGrouped].map(([key, value]) => ({
 	items: value.map((d) => ({ value: d["Columns"] }))
 }));
 
+export const isFactor = (key) => {
+	const allFactors = factors.map((d) => d.Columns);
+
+	return allFactors.includes(key);
+};
+
 export const colors = {
 	red: "#FF4200",
 	green: "#2EED7B",
@@ -260,5 +266,20 @@ export const getOpacity = (
 		} else {
 			return dim;
 		}
+	}
+};
+
+export const numberFormatter = (number) => {
+	let absNum = Math.abs(number);
+	if (absNum > 1000000000) {
+		return `${Math.round(number / 1000000000).toLocaleString()} B`;
+	} else if (absNum > 1000000) {
+		return `${Math.round(number / 1000000).toLocaleString()} M`;
+	} else if (absNum > 1000) {
+		return `${Math.round(number / 1000).toLocaleString()} K`;
+	} else if (absNum <= 1000) {
+		return number.toFixed(1).toLocaleString();
+	} else {
+		return number;
 	}
 };

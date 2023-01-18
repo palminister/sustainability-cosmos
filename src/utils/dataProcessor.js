@@ -4,7 +4,7 @@ import { interpolateRgb, extent, scaleLinear, group } from "d3";
 
 export const viewOptions = [
 	{ value: "Cluster" },
-	{ value: "BeeSwarm" },
+	{ value: "Average" },
 	{ value: "Heatmap" }
 ];
 
@@ -18,7 +18,7 @@ export const indexOptions = [
 ];
 
 export const continentOptions = [
-	{ value: "All" },
+	{ value: "All Continents" },
 	{ value: "Africa" },
 	{ value: "Asia" },
 	{ value: "Europe" },
@@ -34,7 +34,7 @@ export const classOptions = [
 ];
 
 export const countryOptions = [
-	{ value: "All" },
+	{ value: "All Countries" },
 	...rawData.map((d) => ({ value: d.Country }))
 ];
 
@@ -193,6 +193,72 @@ export const formatTableData = (data) => {
 	});
 };
 
+export const isAll = (selected) =>
+	selected ? selected.includes("All") : false;
+
 export const filterData = (key, selected, data) => {
-	return selected === "All" ? data : data.filter((d) => d[key] === selected);
+	return isAll(selected) ? data : data.filter((d) => d[key] === selected);
+};
+
+export const filterContinentCountry = (
+	selectedContinent,
+	selectedCountry,
+	data
+) => {
+	if (selectedContinent) {
+		if (isAll(selectedContinent) && isAll(selectedCountry)) {
+			return data;
+		} else if (isAll(selectedContinent)) {
+			return data;
+		} else if (isAll(selectedCountry)) {
+			return data.filter((d) => d.Continent === selectedContinent);
+		} else {
+			return data.filter(
+				(d) =>
+					d.Continent === selectedContinent || d.Country === selectedCountry
+			);
+		}
+	} else {
+		return data;
+	}
+};
+
+export const getOpacity = (
+	d,
+	isAllCountry,
+	isAllContinent,
+	selectedCountry,
+	selectedContinent,
+	dim,
+	bright
+) => {
+	// Check if all countries and continents are selected
+	if (isAllCountry && isAllContinent) {
+		return bright;
+	}
+	// check if all countries are selected
+	else if (isAllCountry) {
+		// check if the selected continent is the same as current country
+		if (selectedContinent === d.Continent) {
+			return bright;
+		} else {
+			return dim;
+		}
+	}
+	// check if all continents are selected
+	else if (isAllContinent) {
+		// check if the selected country is the same as current country
+		if (selectedCountry === d.Country) {
+			return bright;
+		} else {
+			return dim;
+		}
+	} else {
+		// check if the selected country or continent is the same as current country or continent
+		if (selectedCountry === d.Country || selectedContinent === d.Continent) {
+			return bright;
+		} else {
+			return dim;
+		}
+	}
 };

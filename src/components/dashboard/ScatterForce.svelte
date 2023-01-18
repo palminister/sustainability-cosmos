@@ -1,6 +1,7 @@
 <script>
 	import { getContext, createEventDispatcher } from "svelte";
 	import { randomUniform, color } from "d3";
+	import { isAll, getOpacity } from "$utils/dataProcessor";
 	import {
 		forceSimulation,
 		forceX,
@@ -55,46 +56,6 @@
 	};
 
 	$: $data, $width, updatePositions();
-
-	const getOpacity = (
-		d,
-		isAllCountry,
-		isAllContinent,
-		selectedCountry,
-		selectedContinent,
-		dim,
-		bright
-	) => {
-		// Check if all countries and continents are selected
-		if (isAllCountry && isAllContinent) {
-			return bright;
-		}
-		// check if all countries are selected
-		else if (isAllCountry) {
-			// check if the selected continent is the same as current country
-			if (selectedContinent === d.Continent) {
-				return bright;
-			} else {
-				return dim;
-			}
-		}
-		// check if all continents are selected
-		else if (isAllContinent) {
-			// check if the selected country is the same as current country
-			if (selectedCountry === d.Country) {
-				return bright;
-			} else {
-				return dim;
-			}
-		} else {
-			// check if the selected country or continent is the same as current country or continent
-			if (selectedCountry === d.Country || selectedContinent === d.Continent) {
-				return bright;
-			} else {
-				return dim;
-			}
-		}
-	};
 </script>
 
 <g
@@ -108,8 +69,8 @@
 		{@const darker = color(d.color).darker(2)}
 		{@const stroke = selectedCountry === d.Country ? "white" : "none"}
 		{@const r = d.size ? d.size + 10 : 0}
-		{@const isAllCountry = selectedCountry === "All"}
-		{@const isAllContinent = selectedContinent === "All"}
+		{@const isAllCountry = isAll(selectedCountry)}
+		{@const isAllContinent = isAll(selectedContinent)}
 		{@const opacity = getOpacity(
 			d,
 			isAllCountry,
@@ -140,9 +101,10 @@
 		{@const fill = d.color}
 		{@const brighter =
 			selectedCountry === d.Country ? "white" : color(d.color).brighter(0.2)}
+		{@const strokeWidth = selectedCountry === d.Country ? 3 : 6}
 		{@const r = d.size ? d.size : 0}
-		{@const isAllCountry = selectedCountry === "All"}
-		{@const isAllContinent = selectedContinent === "All"}
+		{@const isAllCountry = isAll(selectedCountry)}
+		{@const isAllContinent = isAll(selectedContinent)}
 		{@const opacity = getOpacity(
 			d,
 			isAllCountry,
@@ -167,7 +129,7 @@
 				{opacity}
 				clip-path="circle()"
 				stroke={brighter}
-				stroke-width={6}
+				stroke-width={strokeWidth}
 			/>
 		{:else}
 			<circle

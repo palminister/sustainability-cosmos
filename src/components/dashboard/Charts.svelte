@@ -9,10 +9,11 @@
 		colorOptions,
 		continentColors,
 		classColors,
+		indexColors,
 		classOptions,
 		sizeOptions,
 		sizeFeatureOptions,
-		filterData,
+		filterContinentCountry,
 		formatSNEData,
 		formatBeeSwarmData
 	} from "$utils/dataProcessor";
@@ -22,7 +23,6 @@
 	import ModeSet from "$components/dashboard/ModeSet.svelte";
 	import IndexSet from "$components/dashboard/IndexSet.svelte";
 	import RadioSet from "$components/dashboard/RadioSet.svelte";
-	import ColorSet from "$components/dashboard/ColorSet.svelte";
 	import AxisX from "$components/charts/AxisX.svg.svelte";
 	import AxisY from "$components/charts/AxisY.svg.svelte";
 	import ScatterForce from "$components/dashboard/ScatterForce.svelte";
@@ -34,12 +34,12 @@
 	import Arrow from "$components/dashboard/Arrow.svg.svelte";
 	import SizeLegend from "$components/dashboard/SizeLegend.svg.svelte";
 	import NullSizeLegend from "$components/dashboard/NullSizeLegend.svelte";
+	import ColorLegend from "$components/dashboard/ColorLegend.svelte";
 
 	let selectedView = viewOptions[0].value;
 	let selectedIndex = indexOptions[0].value;
 	let selectedCountry = countryOptions[0].value;
 	let selectedContinent = continentOptions[0].value;
-	let selectedClass = classOptions[0].value;
 	let selectedColor = colorOptions[0].value;
 	let selectedSize = sizeOptions[0].value;
 	let selectedSizeIndex = indexOptions[0].value;
@@ -79,7 +79,7 @@
 		[x, y] = ["SNE_X", "SNE_Y"];
 		[meanValue, stdValue] = [null, null];
 	}
-	$: if (selectedView === "BeeSwarm") {
+	$: if (selectedView === "Average") {
 		let beeSwarmData = formatBeeSwarmData(
 			selectedIndex,
 			selectedColor,
@@ -88,7 +88,11 @@
 			selectedSizeFeature,
 			worldData
 		);
-		data = filterData("Continent", selectedContinent, beeSwarmData);
+		data = filterContinentCountry(
+			selectedContinent,
+			selectedCountry,
+			beeSwarmData
+		);
 		[x, y] = ["BeeSwarmX", "BeeSwarmY"];
 		[meanValue, stdValue] = [
 			mean(data, (d) => d[y]),
@@ -96,7 +100,7 @@
 		];
 	}
 	$: console.log("data", data);
-	$: console.log("selectedContinent", selectedContinent);
+	$: console.log("selectedColor", selectedColor);
 
 	let panelToggle = true;
 	let handleToggle = () => {
@@ -108,7 +112,11 @@
 	<div class="top-panel">
 		<div class="top-panel-wrapper">
 			<WGSLogo />
-			<IndexSet options={indexOptions} bind:value={selectedIndex} />
+			{#if selectedView !== "Heatmap"}
+				<IndexSet options={indexOptions} bind:value={selectedIndex} />
+			{:else}
+				<IndexSet disabled options={indexOptions} bind:value={selectedIndex} />
+			{/if}
 			<QuestionMark />
 		</div>
 	</div>
@@ -118,7 +126,9 @@
 	</div>
 	<div
 		class="arrow-icon"
-		style="transform: translate(0, -50%) rotate({panelToggle ? -90 : 90}deg);"
+		style="transform: translate(0, {selectedView !== 'Heatmap'
+			? -50
+			: -170}%) rotate({panelToggle ? -90 : 90}deg);"
 		on:click={handleToggle}
 		on:keydown={handleToggle}
 	>
@@ -128,51 +138,65 @@
 		class="right-panel"
 		style="transform: translate({panelToggle ? 0 : 150}%, -50%)"
 	>
-		<h5 class="panel-label" style="margin-top: 0">COUNTRY</h5>
+		<h5 class="panel-label" style="margin-top: 0">FOCUS</h5>
+		<Svelecte
+			labelField="value"
+			options={continentOptions}
+			bind:value={selectedContinent}
+		/>
 		<Svelecte
 			clearable={true}
 			labelField="value"
 			options={countryOptions}
 			bind:value={selectedCountry}
 		/>
-		<h5 class="panel-label">COLOR</h5>
-		<RadioSet options={colorOptions} bind:value={selectedColor} />
-		<h5 class="panel-label">SIZE</h5>
-		<RadioSet options={sizeOptions} bind:value={selectedSize} />
-		{#if selectedSize === "Index"}
-			<Svelecte
-				labelField="value"
-				options={indexOptions}
-				bind:value={selectedSizeIndex}
-			/>
+		{#if selectedView !== "Heatmap"}
+			<h5 class="panel-label">COLOR</h5>
+			<RadioSet options={colorOptions} bind:value={selectedColor} />
+			<h5 class="panel-label">SIZE</h5>
+			<RadioSet options={sizeOptions} bind:value={selectedSize} />
+			{#if selectedSize === "Index"}
+				<Svelecte
+					labelField="value"
+					options={indexOptions}
+					bind:value={selectedSizeIndex}
+				/>
+			{/if}
+			{#if selectedSize === "Feature"}
+				<Svelecte
+					clearable={true}
+					groupLabelField="groupHeader"
+					groupItemsField="items"
+					labelField="value"
+					options={sizeFeatureOptions}
+					bind:value={selectedSizeFeature}
+				/>
+			{/if}
 		{/if}
-		{#if selectedSize === "Feature"}
-			<Svelecte
-				clearable={true}
-				groupLabelField="groupHeader"
-				groupItemsField="items"
-				labelField="value"
-				options={sizeFeatureOptions}
-				bind:value={selectedSizeFeature}
-			/>
+	</div>
+	<div class="size-legend">
+		<NullSizeLegend />
+		{#if selectedView !== "Heatmap"}
+			<SizeLegend {data} width={120} height={40} />
+		{:else}
+			{@const indexSize = [{ sizeDomain: [0.0, 0.8] }]}
+			<SizeLegend data={indexSize} width={120} height={40} />
 		{/if}
 	</div>
 	<div class="bottom-panel">
-		{#if selectedColor === "Continent"}
-			<ColorSet
-				color={continentColors}
-				options={continentOptions}
-				bind:value={selectedContinent}
-			/>
-		{:else if selectedColor === "Class"}
-			<ColorSet
-				color={classColors}
-				options={classOptions}
-				bind:value={selectedClass}
-			/>
-		{/if}
-		<NullSizeLegend />
-		<SizeLegend {data} width={120} height={40} />
+		<div class="color-bar">
+			{#if selectedView !== "Heatmap"}
+				{#if selectedColor === "Continent"}
+					<ColorLegend color={continentColors} options={continentOptions} />
+				{:else if selectedColor === "Class"}
+					<ColorLegend color={classColors} options={classOptions} />
+				{:else}
+					<ColorLegend color={indexColors} options={[selectedColor]} />
+				{/if}
+			{:else}
+				<ColorLegend color={indexColors} options={indexOptions} isIndex />
+			{/if}
+		</div>
 	</div>
 	<!--<div class="setting-panel">
 		 <div class="setting-content">
@@ -307,6 +331,9 @@
 		--sv-min-height: 34px;
 		height: 34px;
 	}
+	:global(.sv-item-content) {
+		color: var(--color-purple-dark) !important;
+	}
 	:global(.optgroup-header) {
 		border: 2px dashed var(--color-purple-light);
 		color: var(--color-purple-light) !important;
@@ -347,8 +374,8 @@
 	.left-panel {
 		position: absolute;
 		z-index: 10;
-		top: 50%;
-		transform: translateY(-50%);
+		top: 40%;
+		transform: translateY(-40%);
 		text-align: center;
 		margin-left: var(--24px);
 	}
@@ -386,6 +413,16 @@
 		z-index: 10;
 		bottom: 0;
 		width: 100%;
+	}
+	.color-bar {
+		display: flex;
+		width: 100%;
+		margin: auto;
+	}
+	.size-legend {
+		position: absolute;
+		bottom: 60px;
+		margin-left: var(--24px);
 	}
 
 	.chart {

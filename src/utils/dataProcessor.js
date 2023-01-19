@@ -17,6 +17,15 @@ export const indexOptions = [
 	{ value: "Politics" }
 ];
 
+export const indexKeys = [
+	"SustainabilityIndex",
+	"HumanIndex",
+	"HealthIndex",
+	"EnvironmentIndex",
+	"EconomicsIndex",
+	"PoliticsIndex"
+];
+
 export const continentOptions = [
 	{ value: "All Continents" },
 	{ value: "Africa" },

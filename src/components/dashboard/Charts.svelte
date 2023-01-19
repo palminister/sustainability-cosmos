@@ -389,6 +389,7 @@
 		color: var(--color-yellow);
 		font-size: var(--12px);
 		line-height: 0.5rem;
+		animation: fadeIn 1s cubic-bezier(0.47, 0, 0.05, 1);
 	}
 
 	.top-panel {
@@ -491,10 +492,22 @@
 	td {
 		padding: 10px;
 	}
+	.detail-table {
+		animation: fadeIn 2s cubic-bezier(0.47, 0, 0.05, 1);
+	}
 	.detail-table:nth-child(odd) {
 		background-color: rgb(179, 122, 250, 0.13);
 	}
 	.radar-chart {
 		transform: translateY(-5px);
+	}
+
+	@keyframes fadeIn {
+		0% {
+			opacity: 0.5;
+		}
+		100% {
+			opacity: 1;
+		}
 	}
 </style>

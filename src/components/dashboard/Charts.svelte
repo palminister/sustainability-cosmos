@@ -17,7 +17,8 @@
 		formatSNEData,
 		formatBeeSwarmData,
 		isFactor,
-		numberFormatter
+		numberFormatter,
+		indexKeys
 	} from "$utils/dataProcessor";
 
 	import worldData from "$components/dashboard/world_data_imputed.csv";
@@ -38,6 +39,8 @@
 	import NullSizeLegend from "$components/dashboard/NullSizeLegend.svelte";
 	import ColorLegend from "$components/dashboard/ColorLegend.svelte";
 	import Modal from "$components/dashboard/Modal.svelte";
+	import AxisRadar from "$components/charts/AxisRadar.svelte";
+	import RadarChart from "$components/charts/RadarChart.svelte";
 
 	let selectedView = viewOptions[0].value;
 	let selectedIndex = indexOptions[0].value;
@@ -112,11 +115,36 @@
 
 	let showModal = false;
 	let detail;
-	let handleModal = (e) => {
+	let indexDetails = [];
+	let handleOpenModal = (e) => {
 		detail = e.detail.props;
+		indexKeys.forEach((item) => {
+			indexDetails = [...indexDetails, +detail[item]];
+		});
 		showModal = true;
-		// console.log("click", detail);
+		// console.log("detail", detail);
+		// console.log("indexDetails", indexDetails);
 	};
+	let handleCloseModal = () => {
+		showModal = false;
+		indexDetails = [];
+	};
+
+	$: featureDropdownItemsSelect =
+		typeof window !== "undefined"
+			? document.getElementsByClassName("sv-item-content")
+			: null;
+
+	let featureDropdownItems;
+
+	$: if (featureDropdownItems) {
+		for (let i = 0; i < featureDropdownItems.length; i++) {
+			featureDropdownItems[i].setAttribute(
+				"title",
+				featureDropdownItems[i].innerText
+			);
+		}
+	}
 </script>
 
 <section>
@@ -174,16 +202,19 @@
 				/>
 			{/if}
 			{#if selectedSize === "Feature"}
-				<!-- <div on:mousemove={(e) => console.log(e.target)}> -->
-				<Svelecte
-					clearable={true}
-					groupLabelField="groupHeader"
-					groupItemsField="items"
-					labelField="value"
-					options={sizeFeatureOptions}
-					bind:value={selectedSizeFeature}
-				/>
-				<!-- </div> -->
+				<div
+					on:click={() => (featureDropdownItems = featureDropdownItemsSelect)}
+					on:keydown={() => (featureDropdownItems = featureDropdownItemsSelect)}
+				>
+					<Svelecte
+						clearable={true}
+						groupLabelField="groupHeader"
+						groupItemsField="items"
+						labelField="value"
+						options={sizeFeatureOptions}
+						bind:value={selectedSizeFeature}
+					/>
+				</div>
 			{/if}
 		{/if}
 	</div>
@@ -212,18 +243,42 @@
 		</div>
 	</div>
 	{#if showModal}
-		<Modal on:close={() => (showModal = false)}>
-			<h5 class="panel-label" slot="header">{detail.Country.toUpperCase()}</h5>
+		<Modal on:close={handleCloseModal}>
+			<h5
+				class="panel-label"
+				slot="header"
+				style="padding-left: 10px; margin-bottom: 0px;"
+			>
+				{detail.Country.toUpperCase()}
+			</h5>
 			<div class="sub-label" slot="sub-header">
-				<p>Country code: {detail["ISO Country code"]}</p>
-				<p>Continent: {detail.Continent}</p>
+				<div>
+					<p>Country code: {detail["ISO Country code"]}</p>
+					<p>Continent: {detail.Continent}</p>
+					<div class="index-label">
+						<table>
+							{#each indexOptions as { value }}
+								<tr>
+									<td style="width:70%; padding-left: 0px;">{value}</td>
+									<td>{(+detail[value + "Index"]).toFixed(2)}</td>
+								</tr>
+							{/each}
+						</table>
+					</div>
+				</div>
+				<div class="radar-chart">
+					<svg width={250} height={250}>
+						<AxisRadar width={250} height={250} options={indexOptions} />
+						<RadarChart width={250} height={250} data={indexDetails} />
+					</svg>
+				</div>
 			</div>
 			<div class="table-container">
 				<table>
 					{#each Object.entries(detail) as [key, value]}
 						{#if isFactor(key)}
-							<tr>
-								<td>{key}</td>
+							<tr class="detail-table">
+								<td style="width:70%">{key}</td>
 								<td>{+value === 0 ? "" : numberFormatter(+value)}</td>
 							</tr>
 						{/if}
@@ -233,75 +288,12 @@
 			</div>
 		</Modal>
 	{/if}
-	<!--<div class="setting-panel">
-		 <div class="setting-content">
-			<h5 class="panel-label">Configure the Settings</h5>
-			<p class="select-label">Select index</p>
-			<Svelecte
-				labelField="value"
-				options={indexOptions}
-				bind:value={selectedIndex}
-			/>
-			<div class="row">
-				<div class="column">
-					<p class="select-label">Select color</p>
-					<Svelecte
-						labelField="value"
-						options={colorOptions}
-						bind:value={selectedColor}
-					/>
-				</div>
-				{#if selectedColor === "Index"}
-					<div class="column" style="margin-left: 7px;">
-						<p class="select-label">Select color index</p>
-						<Svelecte
-							labelField="value"
-							options={indexOptions}
-							bind:value={selectedColorIndex}
-						/>
-					</div>
-				{/if}
-			</div>
-			<p class="select-label">Select size</p>
-			<Svelecte
-				labelField="value"
-				options={sizeOptions}
-				bind:value={selectedSize}
-			/>
-			{#if selectedSize === "Index"}
-				<p class="select-label">Select size index</p>
-				<Svelecte
-					labelField="value"
-					options={indexOptions}
-					bind:value={selectedSizeIndex}
-				/>
-			{/if}
-			{#if selectedSize === "Feature"}
-				<p class="select-label">Select Feature</p>
-				<Svelecte
-					groupLabelField="groupHeader"
-					groupItemsField="items"
-					labelField="value"
-					options={sizeFeatureOptions}
-					bind:value={selectedSizeFeature}
-				/>
-			{/if}
-			{#if selectedView === "BeeSwarm" || selectedView === "Heatmap"}
-				<p class="select-label">Select region</p>
-				<Svelecte
-					labelField="value"
-					options={continentOptions}
-					bind:value={selectedContinent}
-				/>
-			{/if}
-		</div>
-	</div> -->
 
 	<div class="chart">
 		<figure style="transform: translateX({panelToggle ? 0 : 5}%);">
 			{#if selectedView === "Heatmap"}
 				<HeatmapTable
-					on:click={handleModal}
+					on:click={handleOpenModal}
 					data={worldData}
 					{selectedContinent}
 					{selectedCountry}
@@ -319,7 +311,7 @@
 								evt = hideTooltip = event;
 							}}
 							on:mouseout={() => (hideTooltip = true)}
-							on:click={handleModal}
+							on:click={handleOpenModal}
 							{selectedCountry}
 							{selectedContinent}
 						/>
@@ -369,9 +361,6 @@
 	:global(.sv-item-content) {
 		color: var(--color-purple-dark) !important;
 	}
-	/* :global(.sv-item-content:hover) {
-		color: var(--color-purple-light) !important;
-	} */
 	:global(.optgroup-header) {
 		border: 2px dashed var(--color-purple-light);
 		color: var(--color-purple-light) !important;
@@ -394,6 +383,9 @@
 		font-weight: 700;
 	}
 	.sub-label {
+		display: flex;
+		padding-left: 10px;
+		justify-content: space-between;
 		color: var(--color-yellow);
 		font-size: var(--12px);
 		line-height: 0.5rem;
@@ -485,7 +477,7 @@
 
 	.table-container {
 		width: 100%;
-		height: 213px;
+		height: 197px;
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
 	}
@@ -499,7 +491,10 @@
 	td {
 		padding: 10px;
 	}
-	tr:nth-child(odd) {
+	.detail-table:nth-child(odd) {
 		background-color: rgb(179, 122, 250, 0.13);
+	}
+	.radar-chart {
+		transform: translateY(-5px);
 	}
 </style>

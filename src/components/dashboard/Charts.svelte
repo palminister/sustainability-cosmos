@@ -477,7 +477,7 @@
 
 	.table-container {
 		width: 100%;
-		height: 197px;
+		height: 200px;
 		overflow-y: scroll;
 		scroll-snap-type: y mandatory;
 	}

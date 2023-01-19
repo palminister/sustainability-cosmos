@@ -28,10 +28,10 @@
 		<circle
 			cx={circleR * Math.cos(thisAngleSlice)}
 			cy={circleR * Math.sin(thisAngleSlice)}
-			r={4.5}
+			r={4}
 			fill="#f0c"
 			stroke="#fff"
-			stroke-width={2}
+			stroke-width={1}
 		/>
 	{/each}
 </g>

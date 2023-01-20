@@ -362,17 +362,13 @@
 	<div class="top-panel">
 		<div class="top-panel-wrapper">
 			<WGSLogo />
-			<div class="top-panel-index">
-				{#if selectedView !== "Heatmap"}
+			{#if selectedView !== "Heatmap"}
+				<div class="top-panel-index">
 					<IndexSet options={indexOptions} bind:value={selectedIndex} />
-				{:else}
-					<IndexSet
-						disabled
-						options={indexOptions}
-						bind:value={selectedIndex}
-					/>
-				{/if}
-			</div>
+				</div>
+			{:else}
+				<IndexSet disabled options={indexOptions} bind:value={selectedIndex} />
+			{/if}
 			<div class="info">
 				<QuestionMark />
 				<button on:click={() => tour.start()}>teach</button>

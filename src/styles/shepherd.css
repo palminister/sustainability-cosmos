@@ -3,10 +3,10 @@
 	border: 0;
 	border-radius: 3px;
 	color: hsla(0, 0%, 100%, 0.75);
-	cursor: pointer;
+	cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 	margin-right: 0.5rem;
 	padding: 0.5rem 1.5rem;
-	transition: all 0.5s ease;
+	transition: all 0.5s cubic-bezier(0.47, 0, 0.05, 1);
 }
 .shepherd-button:not(:disabled):hover {
 	background: #196fcc;
@@ -37,7 +37,7 @@
 	background: transparent;
 	border: none;
 	color: hsla(0, 0%, 50%, 0.75);
-	cursor: pointer;
+	cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 	font-size: 2em;
 	font-weight: 400;
 	margin: 0;
@@ -46,6 +46,7 @@
 }
 .shepherd-cancel-icon:hover {
 	color: rgba(0, 0, 0, 0.75);
+	background: transparent;
 }
 .shepherd-has-title .shepherd-content .shepherd-cancel-icon {
 	color: hsla(0, 0%, 50%, 0.75);

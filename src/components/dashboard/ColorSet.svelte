@@ -50,7 +50,7 @@
 		flex-direction: column;
 		width: 100%;
 		height: 100%;
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		transition: all 0.3s cubic-bezier(0.47, 0, 0.05, 1);
 	}
 	.clear {

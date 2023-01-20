@@ -154,7 +154,7 @@
 
 <style>
 	.plot {
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 	}
 	circle {
 		transition: all 0.7s ease-out;

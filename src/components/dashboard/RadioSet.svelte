@@ -102,7 +102,7 @@
 		border-radius: 0;
 		color: var(--color-yellow);
 		outline: none;
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		font-family: inherit;
 		font-size: var(--12px);
 		display: inline-block;

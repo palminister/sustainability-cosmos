@@ -90,7 +90,7 @@
 		border-radius: 20px;
 		border: 2px solid var(--color-white);
 		outline: none;
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		font-family: inherit;
 		font-size: var(--14px);
 		display: inline-block;
@@ -124,6 +124,7 @@
 		color: rgb(247, 247, 247);
 		background: rgb(247, 247, 247, 0.2);
 		opacity: 0.2;
-		cursor: not-allowed;
+		/* cursor: not-allowed; */
+		cursor: url("/src/svg/cursor-disabled.svg") 12.5 12.5, auto;
 	}
 </style>

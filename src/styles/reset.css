@@ -8,6 +8,7 @@ body {
 	text-rendering: optimizeLegibility;
 	word-wrap: break-word;
 	-webkit-tap-highlight-color: transparent;
+	cursor: url('/src/svg/cursor-normal.svg') 12.5 12.5, auto;
 }
 
 h1,

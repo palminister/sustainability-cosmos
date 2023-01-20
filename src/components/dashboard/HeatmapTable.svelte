@@ -181,7 +181,7 @@
 		/* border-bottom: 1px dashed var(--color-purple-light); */
 	}
 	.cell {
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		position: relative;
 	}
 	.label {
@@ -210,7 +210,7 @@
 		align-items: center;
 		font-size: var(--14px);
 		font-weight: 600;
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		padding: 10px 0px 10px 0px;
 		border-radius: 4px;
 	}

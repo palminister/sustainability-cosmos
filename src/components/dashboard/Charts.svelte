@@ -357,9 +357,11 @@
 		letter-spacing: 1px !important;
 		--sv-min-height: 34px;
 		height: 34px;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 	}
-	:global(.sv-item-content) {
+	:global(.sv-item, .sv-item-content) {
 		color: var(--color-purple-dark) !important;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto !important;
 	}
 	:global(.optgroup-header) {
 		border: 2px dashed var(--color-purple-light);
@@ -373,7 +375,7 @@
 	}
 	:global(.indicator-icon:hover) {
 		opacity: 0.85;
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 	}
 	:global(.indicator-separator) {
 		background-color: var(--color-purple-dark) !important;
@@ -439,7 +441,7 @@
 		z-index: 15;
 		top: 50%;
 		right: 30px;
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 	}
 	.arrow-icon:hover {
 		opacity: 0.9;

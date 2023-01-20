@@ -104,7 +104,7 @@
 		padding: 0.5em;
 		border-radius: 0;
 		outline: none;
-		cursor: pointer;
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		font-family: inherit;
 		font-size: var(--14px);
 		display: inline-block;

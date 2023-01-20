@@ -1,4 +1,7 @@
 <script>
+	import { tweened } from "svelte/motion";
+	import { cubicOut } from "svelte/easing";
+
 	export let options;
 	export let width;
 	export let height;
@@ -9,6 +12,23 @@
 	let lineLength = max * lineLengthFactor;
 	let labelPlacement = max * labelPlacementFactor;
 	let angleSlice = (Math.PI * 2) / options.length;
+
+	$: innerSizeTweened.set(max);
+	const innerSizeTweened = tweened(0, {
+		duration: 400,
+		easing: cubicOut
+	});
+	$: outerSizeTweened.set(max);
+	const outerSizeTweened = tweened(0, {
+		duration: 600,
+		easing: cubicOut
+	});
+
+	$: lineTweened.set(lineLength);
+	const lineTweened = tweened(0, {
+		duration: 600,
+		easing: cubicOut
+	});
 
 	const anchor = (total, i) => {
 		if (i === 0 || i === total / 2) {
@@ -24,7 +44,7 @@
 	<circle
 		cx="0"
 		cy="0"
-		r={max}
+		r={$outerSizeTweened}
 		stroke="#ccc"
 		stroke-width="1"
 		fill="#CDCDCD"
@@ -33,7 +53,7 @@
 	<circle
 		cx="0"
 		cy="0"
-		r={max / 2}
+		r={$innerSizeTweened / 2}
 		stroke="#ccc"
 		stroke-width="1"
 		fill="none"
@@ -43,8 +63,8 @@
 		<line
 			x1="0"
 			y1="0"
-			x2={lineLength * Math.cos(thisAngleSlice)}
-			y2={lineLength * Math.sin(thisAngleSlice)}
+			x2={$lineTweened * Math.cos(thisAngleSlice)}
+			y2={$lineTweened * Math.sin(thisAngleSlice)}
 			stroke="#ccc"
 			stroke-width="1"
 			fill="none"

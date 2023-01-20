@@ -1,6 +1,9 @@
 <script>
+	import { onMount } from "svelte";
 	import { LayerCake, Svg, Html } from "layercake";
 	import { mean, deviation } from "d3";
+	import Shepherd from "/node_modules/shepherd.js/dist/js/shepherd.esm.js";
+	import Svelecte from "/node_modules/svelecte/src/Svelecte.svelte";
 	import {
 		viewOptions,
 		indexOptions,
@@ -22,7 +25,6 @@
 	} from "$utils/dataProcessor";
 
 	import worldData from "$components/dashboard/world_data_imputed.csv";
-	import Svelecte from "../../../node_modules/svelecte/src/Svelecte.svelte";
 	import ModeSet from "$components/dashboard/ModeSet.svelte";
 	import IndexSet from "$components/dashboard/IndexSet.svelte";
 	import RadioSet from "$components/dashboard/RadioSet.svelte";
@@ -145,18 +147,236 @@
 			);
 		}
 	}
+
+	const tour = new Shepherd.Tour({
+		useModalOverlay: true,
+		defaultStepOptions: {
+			classes: "tour-theme-custom",
+			scrollTo: true,
+			cancelIcon: {
+				enabled: true
+			},
+			showOn: function () {
+				const element = document.querySelector(this.attachTo.element);
+				return Boolean(element);
+			}
+		}
+	});
+
+	onMount(() => {
+		tour.addStep({
+			id: "step-1-mode",
+			text: "This step Mode",
+			attachTo: {
+				element: ".left-panel",
+				on: "right"
+			},
+			buttons: [
+				{
+					text: "Next",
+					action: tour.next
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-2-index",
+			text: "This step Index",
+			attachTo: {
+				element: ".top-panel-index",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-3-focus",
+			text: "This step focus",
+			attachTo: {
+				element: ".right-panel-focus",
+				on: "left"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-4-color",
+			text: "This step color",
+			attachTo: {
+				element: ".right-panel-color",
+				on: "left"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-5-size",
+			text: "This step size",
+			attachTo: {
+				element: ".right-panel-size",
+				on: "left"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-6-size-legend",
+			text: "This step size-legend",
+			attachTo: {
+				element: ".size-legend",
+				on: "right"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-7-color-legend",
+			text: "This step Color-legend",
+			attachTo: {
+				element: ".bottom-panel",
+				on: "top"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-8-chart",
+			text: "This step Chart click to explore",
+			attachTo: {
+				element: ".inner-chart",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-9-info",
+			text: "Forgot? Click here to see the tutorial again",
+			attachTo: {
+				element: ".info",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.complete();
+					},
+					text: "Done"
+				}
+			]
+		});
+		tour.start();
+	});
 </script>
 
 <section>
 	<div class="top-panel">
 		<div class="top-panel-wrapper">
 			<WGSLogo />
-			{#if selectedView !== "Heatmap"}
-				<IndexSet options={indexOptions} bind:value={selectedIndex} />
-			{:else}
-				<IndexSet disabled options={indexOptions} bind:value={selectedIndex} />
-			{/if}
-			<QuestionMark />
+			<div class="top-panel-index">
+				{#if selectedView !== "Heatmap"}
+					<IndexSet options={indexOptions} bind:value={selectedIndex} />
+				{:else}
+					<IndexSet
+						disabled
+						options={indexOptions}
+						bind:value={selectedIndex}
+					/>
+				{/if}
+			</div>
+			<div class="info">
+				<QuestionMark />
+				<button on:click={() => tour.start()}>teach</button>
+			</div>
 		</div>
 	</div>
 	<div class="left-panel">
@@ -177,45 +397,52 @@
 		class="right-panel"
 		style="transform: translate({panelToggle ? 0 : 150}%, -50%)"
 	>
-		<h5 class="panel-label" style="margin-top: 0">FOCUS</h5>
-		<Svelecte
-			labelField="value"
-			options={continentOptions}
-			bind:value={selectedContinent}
-		/>
-		<Svelecte
-			clearable={true}
-			labelField="value"
-			options={countryOptions}
-			bind:value={selectedCountry}
-		/>
+		<div class="right-panel-focus">
+			<h5 class="panel-label" style="margin-top: 0">FOCUS</h5>
+			<Svelecte
+				labelField="value"
+				options={continentOptions}
+				bind:value={selectedContinent}
+			/>
+			<Svelecte
+				clearable={true}
+				labelField="value"
+				options={countryOptions}
+				bind:value={selectedCountry}
+			/>
+		</div>
 		{#if selectedView !== "Heatmap"}
-			<h5 class="panel-label">COLOR</h5>
-			<RadioSet options={colorOptions} bind:value={selectedColor} />
-			<h5 class="panel-label">SIZE</h5>
-			<RadioSet options={sizeOptions} bind:value={selectedSize} />
-			{#if selectedSize === "Index"}
-				<Svelecte
-					labelField="value"
-					options={indexOptions}
-					bind:value={selectedSizeIndex}
-				/>
-			{/if}
-			{#if selectedSize === "Feature"}
-				<div
-					on:click={() => (featureDropdownItems = featureDropdownItemsSelect)}
-					on:keydown={() => (featureDropdownItems = featureDropdownItemsSelect)}
-				>
+			<div class="right-panel-color">
+				<h5 class="panel-label">COLOR</h5>
+				<RadioSet options={colorOptions} bind:value={selectedColor} />
+			</div>
+			<div class="right-panel-size">
+				<h5 class="panel-label">SIZE</h5>
+				<RadioSet options={sizeOptions} bind:value={selectedSize} />
+				{#if selectedSize === "Index"}
 					<Svelecte
-						clearable={true}
-						groupLabelField="groupHeader"
-						groupItemsField="items"
 						labelField="value"
-						options={sizeFeatureOptions}
-						bind:value={selectedSizeFeature}
+						options={indexOptions}
+						bind:value={selectedSizeIndex}
 					/>
-				</div>
-			{/if}
+				{/if}
+				{#if selectedSize === "Feature"}
+					<div
+						on:click={() => (featureDropdownItems = featureDropdownItemsSelect)}
+						on:keydown={() =>
+							(featureDropdownItems = featureDropdownItemsSelect)}
+					>
+						<Svelecte
+							clearable={true}
+							groupLabelField="groupHeader"
+							groupItemsField="items"
+							labelField="value"
+							options={sizeFeatureOptions}
+							bind:value={selectedSizeFeature}
+						/>
+					</div>
+				{/if}
+			</div>
 		{/if}
 	</div>
 	<div class="size-legend">
@@ -290,7 +517,10 @@
 	{/if}
 
 	<div class="chart">
-		<figure style="transform: translateX({panelToggle ? 0 : 5}%);">
+		<figure
+			class="inner-chart"
+			style="transform: translateX({panelToggle ? 0 : 5}%);"
+		>
 			{#if selectedView === "Heatmap"}
 				<HeatmapTable
 					on:click={handleOpenModal}

@@ -27,7 +27,9 @@
 		"prettier-plugin-svelte": "^2.9.0",
 		"rollup": "^3.9.1",
 		"rollup-plugin-svg": "^2.0.0",
+		"shepherd.js": "^11.0.1",
 		"style-dictionary": "^3.7.1",
+		"svelecte": "4.0.0-alpha.6",
 		"svelte": "^3.55.0",
 		"svelte-copy": "^1.3.0",
 		"svelte-preprocess": "^5.0.0",
@@ -39,8 +41,5 @@
 		"node": ">= 16.13.0"
 	},
 	"browserslist": "> 0.5%, last 4 versions, not ie <= 11, not ie_mob <= 11",
-	"subdirectory": "svelte-starter",
-	"dependencies": {
-		"svelecte": "^3.13.2"
-	}
+	"subdirectory": "svelte-starter"
 }

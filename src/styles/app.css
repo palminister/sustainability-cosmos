@@ -2,6 +2,7 @@
 @import "normalize.css";
 @import "font.css";
 @import "reset.css";
+@import "shepherd.css";
 
 /* colors defined in variables.css */
 :root {

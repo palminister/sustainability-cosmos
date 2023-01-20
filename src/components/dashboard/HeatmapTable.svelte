@@ -1,7 +1,6 @@
 <script>
 	import {
 		formatTableData,
-		isAll,
 		filterContinentCountry,
 		colorAccessor
 	} from "$utils/dataProcessor";

@@ -58,7 +58,11 @@
 								<Heatmap />
 							{/if}
 						</span>
-						{option.label || option.value}
+						{#if option.value === "Heatmap"}
+							{"Summary"}
+						{:else}
+							{option.label || option.value}
+						{/if}
 					</label>
 				</div>
 			{/each}

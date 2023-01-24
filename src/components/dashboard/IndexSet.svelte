@@ -27,8 +27,11 @@
 	>
 		{#if legend}<div class="legend" id="legend-{id}">{legend}</div>{/if}
 		<div class="options">
-			{#each optionsWithSlug as option}
-				<div class="option">
+			{#each optionsWithSlug as option, index}
+				<div
+					class="option"
+					style="animation: fadeIn {index + 1}s cubic-bezier(0.47, 0, 0.05, 1);"
+				>
 					<input
 						type="radio"
 						id={`${id}-${option.slug}`}

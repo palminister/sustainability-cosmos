@@ -622,7 +622,8 @@
 
 <style>
 	section {
-		display: flex;
+		position: absolute;
+		overflow: hidden;
 		width: 100vw;
 		height: 100vh;
 		background: rgb(16, 17, 39, 1);

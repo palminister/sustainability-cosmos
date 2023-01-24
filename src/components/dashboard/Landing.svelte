@@ -51,7 +51,7 @@
 			rgba(16, 17, 39, 1) 0%,
 			rgba(20, 23, 84, 1) 100%
 		);
-		/* animation: fadeIn 1s cubic-bezier(0.47, 0, 0.05, 1); */
+		animation: fadeIn 1s cubic-bezier(0.47, 0, 0.05, 1);
 	}
 	.introduction {
 		display: flex;
@@ -103,13 +103,5 @@
 		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		color: var(--color-white);
 		background: rgba(20, 23, 84, 0.85);
-	}
-	@keyframes fadeIn {
-		0% {
-			opacity: 0.5;
-		}
-		100% {
-			opacity: 1;
-		}
 	}
 </style>

@@ -87,14 +87,6 @@
 		z-index: 20;
 		animation: fadeIn 0.5s cubic-bezier(0.47, 0, 0.05, 1);
 	}
-	@keyframes fadeIn {
-		0% {
-			opacity: 0;
-		}
-		100% {
-			opacity: 1;
-		}
-	}
 
 	button {
 		position: absolute;

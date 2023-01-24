@@ -91,3 +91,12 @@ h5 {
 h6 {
 	font-size: var(--20px, 20px);
 }
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

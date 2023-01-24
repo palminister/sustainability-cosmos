@@ -33,7 +33,7 @@
 		{#if legend}<div class="legend" id="legend-{id}">{legend}</div>{/if}
 		<div class="options">
 			{#each optionsWithSlug as option}
-				<div class="option">
+				<div class={`option-${option.slug}`}>
 					<input
 						type="radio"
 						id={`${id}-${option.slug}`}

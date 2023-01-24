@@ -179,6 +179,66 @@
 			]
 		});
 		tour.addStep({
+			id: "step-1-cluster",
+			text: "This step Cluster",
+			attachTo: {
+				element: ".option-cluster",
+				on: "right"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					text: "Next",
+					action: tour.next
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-1-average",
+			text: "This Average Mode",
+			attachTo: {
+				element: ".option-average",
+				on: "right"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					text: "Next",
+					action: tour.next
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-1-summary",
+			text: "This Summary Mode",
+			attachTo: {
+				element: ".option-heatmap",
+				on: "right"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					text: "Next",
+					action: tour.next
+				}
+			]
+		});
+		tour.addStep({
 			id: "step-2-index",
 			text: "This step Index",
 			attachTo: {
@@ -359,7 +419,7 @@
 </script>
 
 <section>
-	<div class="top-panel">
+	<div class="top-panel" style="z-index: {selectedView !== 'Heatmap' ? 8 : 0};">
 		<div class="top-panel-wrapper">
 			<WGSLogo />
 			{#if selectedView !== "Heatmap"}

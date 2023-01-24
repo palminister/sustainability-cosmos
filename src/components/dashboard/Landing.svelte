@@ -2,15 +2,16 @@
 	import Orbit from "$components/dashboard/Orbit.svelte";
 	import { fade } from "svelte/transition";
 	import { flipboard } from "$utils/flipboard";
+	import tilt from "$utils/tilt.js";
 	import { createEventDispatcher, onMount } from "svelte";
 	const dispatch = createEventDispatcher();
 	let ready = false;
 	onMount(() => (ready = true));
 </script>
 
-<div class="landing-container">
+<div class="landing-container" use:tilt={{ max: 1.5 }}>
 	<div class="introduction">
-		<div class="text-wrapper">
+		<div class="text-wrapper" use:tilt={{ max: 1.5 }}>
 			<h1 class="title">WORLD CONSTELLATIONS</h1>
 			<div class="paragraph">
 				{#if ready}

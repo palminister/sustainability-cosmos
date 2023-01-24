@@ -111,7 +111,8 @@
 	$: console.log("data", data);
 	$: console.log("selectedColor", selectedColor);
 
-	let panelToggle = true;
+	let panelToggle = false;
+	onMount(() => (panelToggle = true));
 	let handleToggle = () => {
 		panelToggle = !panelToggle;
 	};

@@ -7,7 +7,7 @@
 
 	const [mu, std] = [1.3, 0.5];
 	const r = randomLogNormal(mu, std, sizeRange);
-	const orbitOffset = randomUniform(-50, 50);
+	const orbitOffset = randomUniform(-80, 80);
 	const ngroups = 6;
 	const data = Array.from({ length: 217 }, (_, i) => ({
 		r: r(),
@@ -66,5 +66,6 @@
 		max-width: 1019px;
 		margin: auto;
 		overflow: visible;
+		z-index: 0;
 	}
 </style>

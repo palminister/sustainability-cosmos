@@ -90,7 +90,7 @@
 	button {
 		font-family: "Orbitron", sans-serif;
 		padding: 10px 0px;
-		font-size: var(--14px);
+		font-size: var(--13px);
 		letter-spacing: 1px;
 		color: var(--color-yellow);
 		width: 140px;

@@ -92,7 +92,7 @@
 		outline: none;
 		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		font-family: inherit;
-		font-size: var(--14px);
+		font-size: var(--13px);
 		display: inline-block;
 		width: 140px;
 		text-align: center;

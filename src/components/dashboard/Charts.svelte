@@ -44,6 +44,7 @@
 	import AxisRadar from "$components/charts/AxisRadar.svelte";
 	import RadarChart from "$components/charts/RadarChart.svelte";
 
+	export let isTutorial = true;
 	let selectedView = viewOptions[0].value;
 	let selectedIndex = indexOptions[0].value;
 	let selectedCountry = countryOptions[0].value;
@@ -414,7 +415,7 @@
 				}
 			]
 		});
-		tour.start();
+		isTutorial ? tour.start() : null;
 	});
 </script>
 

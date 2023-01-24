@@ -102,13 +102,13 @@
 								{@const brighter = color(bgColor).brighter(0.3)}
 								{@const darker = color(bgColor).darker(1.5)}
 								{@const size = 9 + row[header] * 20}
-								<span style="display: none;">{(darker.opacity = 0.3)}</span>
+								<span style="display: none;">{(darker.opacity = 0.1)}</span>
 								<div class="bubble-container">
 									<div
 										class="bubble"
 										style="background-color: {bgColor};
 										border: 4px solid {brighter}; 
-										outline: 10px solid {darker};
+										box-shadow: 0 0 0 10px {darker};
 										width: {size}px;
 										height: {size}px;"
 									>
@@ -187,7 +187,7 @@
 		position: absolute;
 		right: 15px;
 		transform: translateY(-50%);
-		font-size: var(--14px);
+		font-size: var(--12px);
 		/* color: var(--color-white); */
 	}
 

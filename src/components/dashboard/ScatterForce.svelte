@@ -78,7 +78,7 @@
 			selectedCountry,
 			selectedContinent,
 			0.05,
-			0.2
+			0.1
 		)}
 		<span style="display: none;">{(darker.opacity = opacity)}</span>
 		{#if d.isSize}

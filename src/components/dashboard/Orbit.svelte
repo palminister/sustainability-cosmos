@@ -25,7 +25,7 @@
 		{@const begin = `-${index}s`}
 		{@const dur = 150 + d.r * 10}
 		{@const darker = color(d.color).darker(2)}
-		<span style="display: none;">{(darker.opacity = 0.2)}</span>
+		<span style="display: none;">{(darker.opacity = 0.1)}</span>
 		<circle {cx} {cy} fill={darker} {r}>
 			<animateMotion
 				attributeName="cx"

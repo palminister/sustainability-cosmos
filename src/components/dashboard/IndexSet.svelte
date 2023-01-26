@@ -119,10 +119,6 @@
 		opacity: 1;
 	}
 
-	input[type="radio"]:focus + label {
-		box-shadow: 0 0 4px 0 var(--color-focus);
-	}
-
 	input[type="radio"]:disabled + label {
 		color: rgb(247, 247, 247);
 		background: rgb(247, 247, 247, 0.2);

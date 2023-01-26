@@ -54,6 +54,7 @@
 	.landing-container {
 		width: 100vw;
 		height: 100vh;
+		overflow: hidden;
 		color: var(--color-white);
 		background: rgb(16, 17, 39, 1);
 		background: linear-gradient(
@@ -84,6 +85,7 @@
 	}
 	.text-wrapper {
 		z-index: 10;
+		width: 100%;
 		max-width: 800px;
 	}
 	.title {

@@ -18,16 +18,6 @@
 	};
 </script>
 
-{#if open}
-	<div
-		class="question-background"
-		on:click={() => {
-			close();
-		}}
-		on:keydown={handle_keydown}
-	/>
-{/if}
-
 <button on:click={handleClick}>
 	<svg
 		width="40"
@@ -48,6 +38,13 @@
 </button>
 
 {#if open}
+	<div
+		class="question-background"
+		on:click={() => {
+			close();
+		}}
+		on:keydown={handle_keydown}
+	/>
 	<div class="info-panel" transition:fly={{ x: 300 }}>
 		<button class="close-button" on:click={() => close()}><Cross /></button>
 		<div class="info-body">

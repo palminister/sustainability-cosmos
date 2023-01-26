@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from "svelte";
 	import Demo from "$components/demo/Demo.svelte";
-	import MobileWarning from "$lib/components/helpers/MobileWarning.svelte";
+	import MobileWarning from "$components/helpers/MobileWarning.svelte";
 	import Charts from "$components/dashboard/Charts.svelte";
 	import Landing from "$components/dashboard/Landing.svelte";
 	import { fade } from "svelte/transition";

@@ -1,16 +1,18 @@
 .shepherd-button {
-	background: #3288e6;
-	border: 0;
-	border-radius: 3px;
-	color: hsla(0, 0%, 100%, 0.75);
+	font-family: "Orbitron", sans-serif;
+	font-size: var(--12px);
+	font-weight: 700;
+	letter-spacing: 1px;
+	background: var(--color-yellow);
+	border-radius: 4px;
+	color: var(--color-purple-dark);
 	cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 	margin-right: 0.5rem;
-	padding: 0.5rem 1.5rem;
-	transition: all 0.5s cubic-bezier(0.47, 0, 0.05, 1);
+	padding: 0.5rem 1rem;
+	/* transition: all 0.5s cubic-bezier(0.47, 0, 0.05, 1); */
 }
 .shepherd-button:not(:disabled):hover {
-	background: #196fcc;
-	color: hsla(0, 0%, 100%, 0.75);
+	background: var(--color-white);
 }
 .shepherd-button.shepherd-button-secondary {
 	background: #f1f2f3;
@@ -34,19 +36,25 @@
 	margin-right: 0;
 }
 .shepherd-cancel-icon {
-	background: transparent;
-	border: none;
-	color: hsla(0, 0%, 50%, 0.75);
+	background-color: var(--color-purple-dark);
+	border: 1px solid var(--color-purple-light);
+	color: var(--color-yellow);
+	border-radius: 50%;
+	width: 21px;
+	height: 21px;
 	cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
-	font-size: 2em;
-	font-weight: 400;
 	margin: 0;
 	padding: 0;
 	transition: color 0.5s ease;
 }
+.shepherd-cancel-icon span {
+	position: absolute;
+	font-size: 1.4em;
+	/* left: 0; */
+	transform: translate(-50%, -50%);
+}
 .shepherd-cancel-icon:hover {
-	color: rgba(0, 0, 0, 0.75);
-	background: transparent;
+	background-color: rgba(255, 255, 255, 0.2);
 }
 .shepherd-has-title .shepherd-content .shepherd-cancel-icon {
 	color: hsla(0, 0%, 50%, 0.75);
@@ -77,9 +85,10 @@
 	padding: 1em;
 }
 .shepherd-text {
-	color: rgba(0, 0, 0, 0.75);
-	font-size: 1rem;
-	line-height: 1.3em;
+	color: var(--color-yellow);
+	font-size: var(--12px);
+	font-weight: 700;
+	letter-spacing: 1px;
 	padding: 0.75em;
 }
 .shepherd-text p {
@@ -89,13 +98,19 @@
 	margin-bottom: 0;
 }
 .shepherd-content {
-	border-radius: 5px;
+	border-radius: 4px;
 	outline: none;
 	padding: 0;
 }
 .shepherd-element {
-	background: #fff;
-	border-radius: 5px;
+	background: rgba(22, 27, 118, 1);
+	background: linear-gradient(
+		0deg,
+		rgba(20, 20, 49, 0.8) 0%,
+		rgba(19, 25, 121, 0.8) 100%
+	);
+	border: 1px solid var(--color-purple-light);
+	border-radius: 4px;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 	max-width: 400px;
 	opacity: 0;
@@ -128,21 +143,26 @@
 	z-index: -1;
 }
 .shepherd-arrow:before {
-	background: #fff;
+	background: rgb(16, 19, 86);
 	content: "";
-	transform: rotate(45deg);
+	border-top: 1px solid var(--color-purple-light);
+	border-left: 1px solid var(--color-purple-light);
 }
 .shepherd-element[data-popper-placement^="top"] > .shepherd-arrow {
 	bottom: -8px;
+	transform: rotate(222deg);
 }
 .shepherd-element[data-popper-placement^="bottom"] > .shepherd-arrow {
 	top: -8px;
+	transform: rotate(45deg);
 }
 .shepherd-element[data-popper-placement^="left"] > .shepherd-arrow {
 	right: -8px;
+	transform: rotate(135deg);
 }
 .shepherd-element[data-popper-placement^="right"] > .shepherd-arrow {
 	left: -8px;
+	transform: rotate(-45deg);
 }
 .shepherd-element.shepherd-centered > .shepherd-arrow {
 	opacity: 0;

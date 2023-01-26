@@ -33,7 +33,7 @@ mark {
 a {
 	color: var(--color-link, blue);
 	text-decoration: none;
-	border-bottom: 1px solid currentColor;
+	/* border-bottom: 1px solid currentColor; */
 	cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 }
 

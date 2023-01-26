@@ -61,7 +61,7 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		background: rgba(0, 0, 0, 0.3);
+		background: rgba(0, 0, 0, 0.5);
 		z-index: 20;
 		animation: fadeIn 0.5s cubic-bezier(0.47, 0, 0.05, 1);
 	}

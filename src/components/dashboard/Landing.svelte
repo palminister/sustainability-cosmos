@@ -1,15 +1,25 @@
 <script>
-	import Orbit from "$components/dashboard/Orbit.svelte";
+	import { createEventDispatcher, onMount } from "svelte";
 	import { fade } from "svelte/transition";
 	import { flipboard } from "$utils/flipboard";
 	import tilt from "$utils/tilt.js";
-	import { createEventDispatcher, onMount } from "svelte";
+
+	import Orbit from "$components/dashboard/Orbit.svelte";
+	import WGSLogo from "$components/dashboard/WGSLogo.svg.svelte";
+	import QuestionMark from "$components/dashboard/QuestionMark.svg.svelte";
+
 	const dispatch = createEventDispatcher();
 	let ready = false;
 	onMount(() => (ready = true));
 </script>
 
-<div class="landing-container" use:tilt={{ max: 1.5 }}>
+<div class="logo-container">
+	<div class="logo">
+		<WGSLogo />
+		<QuestionMark />
+	</div>
+</div>
+<div class="landing-container" use:tilt={{ max: 1.3 }}>
 	<div class="introduction">
 		<div class="text-wrapper" use:tilt={{ max: 1.5 }}>
 			<h1 class="title">WORLD CONSTELLATIONS</h1>
@@ -55,10 +65,22 @@
 	}
 	.introduction {
 		display: flex;
+		flex-direction: column;
 		width: 100%;
 		height: 100%;
 		justify-content: center;
 		align-items: center;
+	}
+	.logo-container {
+		position: absolute;
+		animation: fadeIn 1s cubic-bezier(0.47, 0, 0.05, 1);
+		z-index: 10;
+	}
+	.logo {
+		display: flex;
+		padding: 20px;
+		width: 100vw;
+		justify-content: space-between;
 	}
 	.text-wrapper {
 		z-index: 10;

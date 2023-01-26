@@ -5,8 +5,8 @@
 	import tilt from "$utils/tilt.js";
 
 	import Orbit from "$components/dashboard/Orbit.svelte";
-	import WGSLogo from "$components/dashboard/WGSLogo.svg.svelte";
-	import QuestionMark from "$components/dashboard/QuestionMark.svg.svelte";
+	import WGSLogo from "$components/dashboard/WGSLogo.svelte";
+	import QuestionMark from "$components/dashboard/QuestionMark.svelte";
 
 	const dispatch = createEventDispatcher();
 	let ready = false;

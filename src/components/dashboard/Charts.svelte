@@ -34,8 +34,8 @@
 	import Tooltip from "$components/charts/Tooltip.html.svelte";
 	import Deviation from "$components/charts/Deviation.svg.svelte";
 	import HeatmapTable from "$components/dashboard/HeatmapTable.svelte";
-	import WGSLogo from "$components/dashboard/WGSLogo.svg.svelte";
-	import QuestionMark from "$components/dashboard/QuestionMark.svg.svelte";
+	import WGSLogo from "$components/dashboard/WGSLogo.svelte";
+	import QuestionMark from "$components/dashboard/QuestionMark.svelte";
 	import Arrow from "$components/dashboard/Arrow.svg.svelte";
 	import SizeLegend from "$components/dashboard/SizeLegend.svg.svelte";
 	import NullSizeLegend from "$components/dashboard/NullSizeLegend.svelte";

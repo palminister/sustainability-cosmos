@@ -82,7 +82,7 @@
 		background: linear-gradient(
 			0deg,
 			rgba(16, 17, 39, 0.85) 0%,
-			rgba(20, 23, 84, 0.85) 100%
+			rgba(22, 27, 118, 1) 100%
 		);
 		z-index: 20;
 		animation: fadeIn 0.5s cubic-bezier(0.47, 0, 0.05, 1);

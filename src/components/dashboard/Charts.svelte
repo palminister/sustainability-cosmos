@@ -631,7 +631,7 @@
 		background: linear-gradient(
 			0deg,
 			rgba(16, 17, 39, 1) 0%,
-			rgba(20, 23, 84, 1) 100%
+			rgba(22, 27, 118, 1) 100%
 		);
 	}
 	:global(.svelecte-control, .sv-control) {
@@ -721,7 +721,7 @@
 		background: linear-gradient(
 			0deg,
 			rgba(16, 17, 39, 0.65) 0%,
-			rgba(27, 30, 128, 0.65) 100%
+			rgba(27, 34, 175, 0.65) 100%
 		);
 		transition: all 0.5s cubic-bezier(0.47, 0, 0.05, 1);
 	}

@@ -49,7 +49,7 @@
 		background: linear-gradient(
 			0deg,
 			rgba(16, 17, 39, 1) 0%,
-			rgba(20, 23, 84, 1) 100%
+			rgba(22, 27, 118, 1) 100%
 		);
 		animation: fadeIn 1s cubic-bezier(0.47, 0, 0.05, 1);
 	}
@@ -77,7 +77,7 @@
 		background: linear-gradient(
 			0deg,
 			rgba(20, 20, 49, 0.6) 0%,
-			rgba(20, 23, 84, 0.6) 100%
+			rgba(19, 25, 121, 0.6) 100%
 		);
 		border: 1px solid var(--color-purple-light);
 		border-radius: 8px;

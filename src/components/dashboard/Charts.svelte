@@ -759,6 +759,9 @@
 		width: 100%;
 		height: 100%;
 	}
+	.inner-chart {
+		z-index: 9;
+	}
 	figure {
 		margin: 1rem auto;
 		width: 75%;

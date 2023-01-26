@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from "svelte";
 	import Demo from "$components/demo/Demo.svelte";
-	import WIP from "$components/helpers/WIP.svelte";
+	import MobileWarning from "$lib/components/helpers/MobileWarning.svelte";
 	import Charts from "$components/dashboard/Charts.svelte";
 	import Landing from "$components/dashboard/Landing.svelte";
 	import { fade } from "svelte/transition";
@@ -18,10 +18,10 @@
 	$: isTutorial = renderOption === "Tutorial";
 </script>
 
-<!-- <WIP /> -->
 <!-- <Demo /> -->
 <!-- <Footer /> -->
 <div class="home">
+	<MobileWarning />
 	{#if renderOption === ""}
 		<Landing on:navigate={handleNavigation} />
 	{:else}
@@ -34,7 +34,7 @@
 <!-- <Charts /> -->
 <style>
 	.home {
-		background: rgba(20, 23, 82, 1);
+		/* background: rgba(20, 23, 82, 1); */
 		background: linear-gradient(
 			0deg,
 			rgba(16, 17, 39, 1) 0%,

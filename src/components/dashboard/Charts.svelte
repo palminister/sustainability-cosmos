@@ -627,7 +627,7 @@
 		overflow: hidden;
 		width: 100vw;
 		height: 100vh;
-		background: rgb(16, 17, 39, 1);
+		background: rgba(16, 17, 39, 1);
 		background: linear-gradient(
 			0deg,
 			rgba(16, 17, 39, 1) 0%,

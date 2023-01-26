@@ -69,6 +69,7 @@
 			on:keydown={handleSort}
 			class="table-header"
 			style="justify-content: {textAlign}; padding-right: {paddingRight}; color: {color};"
+			title={header.replace("Index", " Index")}
 		>
 			{formatHeader}
 			{#if isSelected}

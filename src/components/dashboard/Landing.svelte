@@ -75,7 +75,6 @@
 	.logo-container {
 		position: absolute;
 		animation: fadeIn 1s cubic-bezier(0.47, 0, 0.05, 1);
-		z-index: 10;
 	}
 	.logo {
 		display: flex;

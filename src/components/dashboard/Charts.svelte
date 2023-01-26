@@ -421,16 +421,22 @@
 </script>
 
 <section>
-	<div class="top-panel" style="z-index: {selectedView !== 'Heatmap' ? 8 : 0};">
+	<div class="top-panel">
 		<div class="top-panel-wrapper">
 			<WGSLogo />
-			{#if selectedView !== "Heatmap"}
-				<div class="top-panel-index">
-					<IndexSet options={indexOptions} bind:value={selectedIndex} />
-				</div>
-			{:else}
-				<IndexSet disabled options={indexOptions} bind:value={selectedIndex} />
-			{/if}
+			<div style="z-index: {selectedView !== 'Heatmap' ? 8 : 0};">
+				{#if selectedView !== "Heatmap"}
+					<div class="top-panel-index">
+						<IndexSet options={indexOptions} bind:value={selectedIndex} />
+					</div>
+				{:else}
+					<IndexSet
+						disabled
+						options={indexOptions}
+						bind:value={selectedIndex}
+					/>
+				{/if}
+			</div>
 			<div class="info">
 				<QuestionMark />
 				<button on:click={() => tour.start()}>teach</button>
@@ -685,7 +691,6 @@
 
 	.top-panel {
 		position: absolute;
-		z-index: 8;
 		width: 100%;
 	}
 

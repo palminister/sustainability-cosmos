@@ -87,9 +87,9 @@
 .shepherd-text {
 	color: var(--color-yellow);
 	font-size: var(--12px);
-	font-weight: 700;
-	letter-spacing: 1px;
-	padding: 0.75em;
+	font-weight: 400;
+	letter-spacing: 2px;
+	padding: 0px 20px 10px 20px;
 }
 .shepherd-text p {
 	margin-top: 0;

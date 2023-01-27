@@ -15,7 +15,7 @@
 	const handleNavigation = (e) => {
 		renderOption = e.detail.e.target.innerText;
 	};
-	$: isTutorial = renderOption === "Tutorial";
+	$: isTutorial = renderOption === "Guide";
 </script>
 
 <!-- <Demo /> -->

@@ -22,23 +22,28 @@
 <div class="landing-container" use:tilt={{ max: 1.3 }}>
 	<div class="introduction">
 		<div class="text-wrapper" use:tilt={{ max: 1.5 }}>
-			<h1 class="title">WORLD CONSTELLATIONS</h1>
+			<h1 class="title">SUSTAINABILITY COSMOS</h1>
 			<div class="paragraph">
 				{#if ready}
 					<p in:flipboard>
-						In our world, there is a plethora of data which come from part of
-						human behavior e.g. Gross Domestic Product (GDP), Healthcare
-						Expenditure or CO2 emission. Notwithstanding, it is likely hard to
-						see a tangible fact because of how large of data is now. This
-						dashboard provide 6 factors to evaluate how a member of our world is
-						now: Economic, Environment, Health, Human, Politic and
-						Sustainability which the last one is combined from the first 5
-						factors
+						Welcome to the cosmic realm of sustainability, where the stars align
+						to reveal the true nature of our world's progress. In this
+						interactive dashboard, we invite you to embark on a journey through
+						the galaxy of data, where each planet represents a country and its
+						position in the constellation reflects multiple things depending on
+						the dashboard views. As you navigate through the vast expanse of
+						information, you'll discover the secrets of each country's
+						performance in terms of Human, Health, Environmental, Economical,
+						and Political conditions—all that makeup “Sustainability”.
+						Furthermore, this journey will also reveal opportunities for
+						improvement and growth toward a more sustainable future. Join us as
+						we uncover the mysteries of the Sustainability Cosmos, and gain a
+						deeper understanding of the current state of our world.
 					</p>
 				{/if}
 			</div>
 			<div class="buttons">
-				<button on:click={(e) => dispatch("navigate", { e })}>Tutorial</button>
+				<button on:click={(e) => dispatch("navigate", { e })}>Guide</button>
 				<button on:click={(e) => dispatch("navigate", { e })}>Explore</button>
 			</div>
 		</div>

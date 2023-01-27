@@ -2,7 +2,7 @@
 	import Cross from "$components/dashboard/Cross.svg.svelte";
 	import { fly } from "svelte/transition";
 
-	let open = false;
+	export let open = false;
 
 	const handleClick = () => {
 		open = !open;
@@ -19,7 +19,7 @@
 </script>
 
 <div>
-	<button on:click={handleClick}>
+	<button class="info" on:click={handleClick}>
 		<svg
 			width="40"
 			height="40"
@@ -51,6 +51,7 @@
 			<div class="info-body">
 				<p>hello</p>
 				<p>hnldksanklasdnasnkldsan</p>
+				<slot name="tour" />
 			</div>
 		</div>
 	{/if}

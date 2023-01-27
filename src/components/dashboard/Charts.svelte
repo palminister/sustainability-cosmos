@@ -167,84 +167,26 @@
 
 	onMount(() => {
 		tour.addStep({
-			id: "step-1-mode",
-			text: "This step Mode",
-			attachTo: {
-				element: ".left-panel",
-				on: "right"
-			},
-			buttons: [
-				{
-					text: "Next",
-					action: tour.next
-				}
-			]
-		});
-		tour.addStep({
-			id: "step-1-cluster",
-			text: "This step Cluster",
-			attachTo: {
-				element: ".option-cluster",
-				on: "right"
-			},
-			buttons: [
-				{
-					action() {
-						return this.back();
-					},
-					text: "Back"
-				},
-				{
-					text: "Next",
-					action: tour.next
-				}
-			]
-		});
-		tour.addStep({
-			id: "step-1-average",
-			text: "This Average Mode",
-			attachTo: {
-				element: ".option-average",
-				on: "right"
-			},
-			buttons: [
-				{
-					action() {
-						return this.back();
-					},
-					text: "Back"
-				},
-				{
-					text: "Next",
-					action: tour.next
-				}
-			]
-		});
-		tour.addStep({
-			id: "step-1-summary",
-			text: "This Summary Mode",
-			attachTo: {
-				element: ".option-heatmap",
-				on: "right"
-			},
-			buttons: [
-				{
-					action() {
-						return this.back();
-					},
-					text: "Back"
-				},
-				{
-					text: "Next",
-					action: tour.next
-				}
-			]
-		});
-		tour.addStep({
-			id: "step-2-index",
-			text: "This step Index",
+			id: "step-1-index",
+			text: "The dashboard offers six different indexes that allow you to gain a more detailed understanding of a country's performance in each specific area.",
 			attachTo: {
 				element: ".top-panel-index",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-1-index-sustainability",
+			text: "The sustainability index provides an overall score for each country based on the performance in all five key aspects (Human, Health, Environmental, Economical, and Political conditions).",
+			attachTo: {
+				element: ".Sustainability",
 				on: "bottom"
 			},
 			buttons: [
@@ -263,8 +205,198 @@
 			]
 		});
 		tour.addStep({
+			id: "step-1-index-human",
+			text: "The human index provides a score for each country based on performance of aspects like human rights, education, equality, and living standards.",
+			attachTo: {
+				element: ".Human",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-1-index-health",
+			text: "The health index provides a score for each country based on the performance of aspects like healthcare expenditure, accessibility, mortality rate, life expectancy, and prevalence of diseases.",
+			attachTo: {
+				element: ".Health",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-1-index-environmental",
+			text: "The environmental index provides a score for each country based on the performance of aspects like environmental quality, protection, and conservation e.g., CO2 emissions, electric power consumption, renewable energy consumption, and pollution.",
+			attachTo: {
+				element: ".Environment",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-1-index-economic",
+			text: "The economic index provides a score for each country based on the performance of aspects like economic stability, growth, and income equality.",
+			attachTo: {
+				element: ".Economics",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-1-index-political",
+			text: "The political index provides a score for each country based on the performance of aspects like political stability, control of corruption, government effectiveness, democracy, and political rights.",
+			attachTo: {
+				element: ".Politics",
+				on: "bottom"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					action() {
+						return this.next();
+					},
+					text: "Next"
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-2-mode",
+			text: "Three different modes allow you to toggle between different views of the data. Switch between these modes by clicking the corresponding buttons on the mode panel, and explore the data in the way that best suits your needs.",
+			attachTo: {
+				element: ".left-panel",
+				on: "right"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					text: "Next",
+					action: tour.next
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-2-cluster",
+			text: 'The first mode is the "Cluster" mode, which groups countries into clusters based on their level of the corresponding index. This mode allows you to identify which countries are similar (the closer together, the more similar)',
+			attachTo: {
+				element: ".option-cluster",
+				on: "right"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					text: "Next",
+					action: tour.next
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-2-average",
+			text: 'The second mode is the "Average" mode, which allows you to see the performance of countries based on the index level and compare it to the global/continental average. The average score changes corresponding to the data you filter.',
+			attachTo: {
+				element: ".option-average",
+				on: "right"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					text: "Next",
+					action: tour.next
+				}
+			]
+		});
+		tour.addStep({
+			id: "step-2-summary",
+			text: `The third mode is the "Summary" mode, which provides a table view of countries sorted corresponding to the indexes' level (sustainability by default) and identify which countries are leading and vice versa.`,
+			attachTo: {
+				element: ".option-heatmap",
+				on: "right"
+			},
+			buttons: [
+				{
+					action() {
+						return this.back();
+					},
+					text: "Back"
+				},
+				{
+					text: "Next",
+					action: tour.next
+				}
+			]
+		});
+		tour.addStep({
 			id: "step-3-focus",
-			text: "This step focus",
+			text: "The focus functionality allows you to focus on a specific continent and/or country. Select the continent and/or country from the drop-down menu or search by typing the name into the box.",
 			attachTo: {
 				element: ".right-panel-focus",
 				on: "left"
@@ -286,7 +418,7 @@
 		});
 		tour.addStep({
 			id: "step-4-color",
-			text: "This step color",
+			text: "Customize the color of each data point to represent different aspects. This feature allows you to quickly identify patterns and trends in the data that best suits your needs.",
 			attachTo: {
 				element: ".right-panel-color",
 				on: "left"
@@ -308,7 +440,7 @@
 		});
 		tour.addStep({
 			id: "step-5-size",
-			text: "This step size",
+			text: "You can also customize the size of each data point to represent different aspects.",
 			attachTo: {
 				element: ".right-panel-size",
 				on: "left"
@@ -330,7 +462,7 @@
 		});
 		tour.addStep({
 			id: "step-6-size-legend",
-			text: "This step size-legend",
+			text: "This is the legend for the shape and size of the data points.",
 			attachTo: {
 				element: ".size-legend",
 				on: "right"
@@ -352,7 +484,7 @@
 		});
 		tour.addStep({
 			id: "step-7-color-legend",
-			text: "This step Color-legend",
+			text: "This is the legend for the color of the data points.",
 			attachTo: {
 				element: ".bottom-panel",
 				on: "top"
@@ -374,7 +506,7 @@
 		});
 		tour.addStep({
 			id: "step-8-chart",
-			text: "This step Chart click to explore",
+			text: "Explore the data! Click on a data point to see detailed information about that country's performance in each of the six indexes (Sustainability, Human, Health, Environment, Economics, and Politics), and see the raw data of the factors that contribute to the indexes.",
 			attachTo: {
 				element: ".inner-chart",
 				on: "bottom"
@@ -396,7 +528,7 @@
 		});
 		tour.addStep({
 			id: "step-9-info",
-			text: "Forgot? Click here to see the tutorial again",
+			text: "Need a refresher? Click here to see a step-by-step guide on how to use the dashboard and explore the data again.",
 			attachTo: {
 				element: ".info",
 				on: "bottom"
@@ -418,6 +550,12 @@
 		});
 		isTutorial ? tour.start() : null;
 	});
+
+	let isInfoOpen = false;
+	const handleTourStart = () => {
+		tour.start();
+		isInfoOpen = false;
+	};
 </script>
 
 <section>
@@ -437,10 +575,9 @@
 					/>
 				{/if}
 			</div>
-			<div class="info">
-				<QuestionMark />
-				<button on:click={() => tour.start()}>teach</button>
-			</div>
+			<QuestionMark bind:open={isInfoOpen}>
+				<button slot="tour" on:click={handleTourStart}>teach</button>
+			</QuestionMark>
 		</div>
 	</div>
 	<div class="left-panel">

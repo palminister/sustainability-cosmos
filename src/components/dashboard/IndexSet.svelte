@@ -29,7 +29,7 @@
 		<div class="options">
 			{#each optionsWithSlug as option, index}
 				<div
-					class="option"
+					class="option {option.label || option.value}"
 					style="animation: fadeIn {index + 1}s cubic-bezier(0.47, 0, 0.05, 1);"
 				>
 					<input

@@ -51,7 +51,8 @@
 			.on("tick", (d) => {
 				nodes = nodes;
 			})
-			// .velocityDecay(0.5)
+			.velocityDecay(0.5)
+			.alphaDecay(0.1)
 			.restart();
 	};
 

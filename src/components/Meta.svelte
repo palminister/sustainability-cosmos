@@ -35,8 +35,8 @@
 
 	<meta name="robots" content="max-image-preview:large" />
 
-	<link rel="canonical" href="{url}/" />
-	<link rel="icon" type="image/svg+xml" href="src/svg/favicon.svg" />
+	<!-- <link rel="canonical" href="{url}/" /> -->
+	<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
 
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

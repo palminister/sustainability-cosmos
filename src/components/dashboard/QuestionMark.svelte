@@ -49,9 +49,71 @@
 		<div class="info-panel" transition:fly={{ x: 300 }}>
 			<button class="close-button" on:click={() => close()}><Cross /></button>
 			<div class="info-body">
-				<p>hello</p>
-				<p>hnldksanklasdnasnkldsan</p>
+				<h5>ABOUT</h5>
+				<p>
+					The <span class="hilighted">Sustainability</span> Cosmos dashboard is
+					an interactive tool that allows users to explore the sustainability
+					performance of countries based on five key aspects:
+					<span class="hilighted"
+						>Human, Health, Environmental, Economical, and Political</span
+					>
+					conditions.
+					<br /> <br />
+					The ability to toggle between different modes, focus on specific countries
+					and continents, and customize data points, encourages users to uncover
+					interesting patterns and a deeper understanding of the current state of
+					our world.
+					<br /> <br />
+					Enjoy diving into the data and discovering the shining stars of sustainability!
+				</p>
 				<slot name="tour" />
+				<h5>DATA</h5>
+				<ul>
+					<li>
+						<a
+							href="https://databank.worldbank.org/"
+							target="_blank"
+							rel="noopener noreferrer">DataBank | The World Bank</a
+						>
+					</li>
+					<li>
+						<a
+							href="https://ourworldindata.org/"
+							target="_blank"
+							rel="noopener noreferrer">Our World in Data</a
+						>
+					</li>
+				</ul>
+				<h5>METHOD</h5>
+				<ul>
+					<li>
+						<a
+							href="https://github.com/supawichO/Clustering_Our_World_with_TSNE"
+							target="_blank"
+							rel="noopener noreferrer"
+							>Clustering Our World with TSNE
+						</a>
+					</li>
+				</ul>
+				<h5>THE TEAM</h5>
+				<ul>
+					<li>
+						<a
+							href="https://www.linkedin.com/in/supawich-orian/"
+							target="_blank"
+							rel="noopener noreferrer"
+							>Supawich (Dear) Orian
+						</a>
+					</li>
+					<li>
+						<a
+							href="https://www.linkedin.com/in/palminister/"
+							target="_blank"
+							rel="noopener noreferrer"
+							>Palm Jumnongrat
+						</a>
+					</li>
+				</ul>
 			</div>
 		</div>
 	{/if}
@@ -68,14 +130,18 @@
 		animation: fadeIn 0.5s cubic-bezier(0.47, 0, 0.05, 1);
 	}
 	button {
-		background-color: transparent;
+		background: linear-gradient(
+			0deg,
+			rgba(20, 20, 49, 1) 0%,
+			rgb(4, 20, 255) 100%
+		);
 		padding: 0;
 		line-height: 0;
 		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		border-radius: 100%;
 	}
 	button:hover {
-		background: rgba(29, 35, 163, 0.85);
+		background: rgba(20, 23, 84, 0.9);
 	}
 	.close-button {
 		position: absolute;
@@ -84,17 +150,43 @@
 	.info-panel {
 		position: absolute;
 		z-index: 50;
+		width: 40%;
 		height: 100vh;
 		right: 0;
 		top: 0;
-		background-color: var(--color-yellow);
+		background: linear-gradient(
+			0deg,
+			rgba(16, 17, 39, 1) 0%,
+			rgba(27, 34, 175, 1) 100%
+		);
 		font-size: var(--12px);
-		font-weight: 700;
-		color: var(--color-purple-dark);
+		font-weight: 400;
+		color: var(--color-white);
 		padding: 20px;
 	}
 	.info-body {
 		display: flex;
 		flex-direction: column;
+	}
+	.hilighted {
+		color: var(--color-yellow);
+		font-weight: 700;
+	}
+	h5 {
+		font-weight: 700;
+		letter-spacing: 2px;
+		color: var(--color-yellow);
+	}
+	p {
+		letter-spacing: 1.5px;
+		margin: 0px;
+	}
+	a {
+		font-size: var(--12px);
+		letter-spacing: 1.5px;
+		color: var(--color-white);
+	}
+	a:hover {
+		color: var(--color-purple-light);
 	}
 </style>

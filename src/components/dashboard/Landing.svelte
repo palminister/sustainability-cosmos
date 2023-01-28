@@ -100,7 +100,6 @@
 	}
 	.paragraph {
 		font-size: var(--12px);
-		letter-spacing: 1px;
 		line-height: 1.6;
 		padding: 20px;
 		background: linear-gradient(
@@ -126,11 +125,15 @@
 		width: 140px;
 		border: 2px solid var(--color-yellow);
 		border-radius: 20px;
-		background: rgba(20, 20, 49, 0.85);
+		background: linear-gradient(
+			0deg,
+			rgba(16, 17, 39, 1) 0%,
+			rgba(27, 34, 175, 1) 100%
+		);
 	}
 	button:hover {
 		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
 		color: var(--color-white);
-		background: rgba(20, 23, 84, 0.85);
+		background: rgba(20, 23, 84, 0.9);
 	}
 </style>

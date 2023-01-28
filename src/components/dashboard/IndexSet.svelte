@@ -110,6 +110,11 @@
 	input[type="radio"]:checked:hover + label {
 		color: var(--color-yellow);
 		border: 2px solid var(--color-yellow);
+		background: linear-gradient(
+			0deg,
+			rgba(16, 17, 39, 1) 0%,
+			rgba(27, 34, 175, 1) 100%
+		);
 		opacity: 1;
 	}
 

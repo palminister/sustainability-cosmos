@@ -579,7 +579,7 @@
 				<div class="buttons" slot="tour">
 					<button class="tour-button" on:click={handleTourStart}>Guide</button>
 					<button class="tour-button" on:click={handleTourStart}
-						>Example Insights</button
+						>Insights</button
 					>
 				</div>
 			</QuestionMark>
@@ -958,7 +958,7 @@
 		font-size: var(--13px);
 		letter-spacing: 1px;
 		color: var(--color-yellow);
-		min-width: 150px;
+		width: 140px;
 		margin-top: 16px;
 		border: 2px solid var(--color-yellow);
 		border-radius: 20px;

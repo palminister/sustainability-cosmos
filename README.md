@@ -63,8 +63,8 @@ make github
 
 ## Authors
 
-- **Author1**: [Supawich (Dear) Orian](https://github.com/author1)
-- **Author2**: [Palm Jumnongrat](https://github.com/author2)
+- **Author1**: [Supawich (Dear) Orian](https://github.com/supawichO)
+- **Author2**: [Palm Jumnongrat](https://github.com/palminister)
 
 ## Acknowledgments
 

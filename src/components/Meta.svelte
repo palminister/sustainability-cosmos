@@ -2,7 +2,7 @@
 	export let title = "Sustainability Cosmos";
 	export let description =
 		"Explore the stars of sustainability with our cosmic dashboard!";
-	export let url = "";
+	export let url = "https://palminister.github.io/sustainability-cosmos/";
 	export let ogUrl = "https://i.ibb.co/SsKrjcJ/sustainability-cosmos-og.jpg";
 	export let keywords = "";
 	export let preloadFont = [];

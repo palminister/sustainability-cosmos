@@ -150,7 +150,7 @@
 	.info-panel {
 		position: absolute;
 		z-index: 50;
-		width: 40%;
+		width: 420px;
 		height: 100vh;
 		right: 0;
 		top: 0;

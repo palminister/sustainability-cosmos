@@ -576,7 +576,12 @@
 				{/if}
 			</div>
 			<QuestionMark bind:open={isInfoOpen}>
-				<button slot="tour" on:click={handleTourStart}>teach</button>
+				<div class="buttons" slot="tour">
+					<button class="tour-button" on:click={handleTourStart}>Guide</button>
+					<button class="tour-button" on:click={handleTourStart}
+						>Example Insights</button
+					>
+				</div>
 			</QuestionMark>
 		</div>
 	</div>
@@ -800,7 +805,11 @@
 		color: var(--color-purple-light) !important;
 	}
 	:global(.indicator-icon) {
-		background-color: var(--color-purple-dark) !important;
+		background: linear-gradient(
+			0deg,
+			rgba(20, 20, 49, 1) 0%,
+			rgb(4, 20, 255) 100%
+		) !important;
 		border: 1px solid var(--color-purple-light);
 		color: var(--color-yellow);
 		border-radius: 50%;
@@ -936,6 +945,33 @@
 	}
 	.radar-chart {
 		transform: translateY(-5px);
+	}
+
+	.buttons {
+		display: flex;
+		justify-content: center;
+		gap: var(--14px);
+	}
+	.tour-button {
+		font-family: "Orbitron", sans-serif;
+		padding: 8px 20px;
+		font-size: var(--13px);
+		letter-spacing: 1px;
+		color: var(--color-yellow);
+		min-width: 150px;
+		margin-top: 16px;
+		border: 2px solid var(--color-yellow);
+		border-radius: 20px;
+		background: var(--color-purple-dark);
+		background: linear-gradient(
+			0deg,
+			rgba(16, 17, 39, 1) 0%,
+			rgba(27, 34, 175, 1) 100%
+		);
+		cursor: url("/src/svg/cursor-pointer.svg") 12.5 12.5, auto;
+	}
+	.tour-button:hover {
+		background: rgba(20, 23, 84, 1);
 	}
 
 	@keyframes fadeInModal {

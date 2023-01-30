@@ -21,12 +21,12 @@
 	);
 	const headers = [
 		"Country",
-		"HealthIndex",
-		"PoliticsIndex",
-		"EconomicsIndex",
+		"SustainabilityIndex",
 		"HumanIndex",
+		"HealthIndex",
 		"EnvironmentIndex",
-		"SustainabilityIndex"
+		"EconomicsIndex",
+		"PoliticsIndex"
 	];
 
 	const baseToggle = headers.map((d) => {

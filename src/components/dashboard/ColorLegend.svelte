@@ -16,7 +16,7 @@
 						? `linear-gradient(90deg,${color[id + 'Index'].startColor} 0%, ${
 								color[id + 'Index'].endColor
 						  } 100%)`
-						: `${color[id]}`};"
+						: `${color[id]}`}; margin-right: 0.5px;"
 				>
 					<span class="label" data-value={id}>{id}</span>
 				</div>

@@ -15,7 +15,7 @@
 					style="background: {isIndex
 						? `linear-gradient(90deg,${color[id + 'Index'].startColor} 0%, ${
 								color[id + 'Index'].endColor
-						  } 100%)`
+						  } 50%, white 100%)`
 						: `${color[id]}`}; margin-right: 0.5px;"
 				>
 					<span class="label" data-value={id}>{id}</span>
@@ -29,7 +29,7 @@
 			data-value={id}
 			class="option"
 			style="background: linear-gradient(90deg,{color[id]
-				.startColor} 0%, {color[id].endColor} 100%);"
+				.startColor} 0%, {color[id].endColor} 50%, white 100%);"
 		>
 			<span class="label" data-value={id}>{idLabel}</span>
 			<div class="label-number-wrapper">

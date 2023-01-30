@@ -1,6 +1,6 @@
 import factors from "$components/dashboard/factors.csv";
 import rawData from "$components/dashboard/world_data_raw.csv";
-import { interpolateRgb, extent, scaleLinear, group } from "d3";
+import { interpolateRgbBasis, extent, scaleLinear, group } from "d3";
 
 export const viewOptions = [
 	{ value: "Cluster" },
@@ -82,9 +82,7 @@ export const colors = {
 	blue: "#09CEFF",
 	orange: "#ff7f00",
 	yellow: "#FFDE32",
-	purple: "#995bff",
-	purpleDark: "#5b6fff",
-	pink: "#ed2ea0",
+	purple: "#690EFF",
 	dark: "#1e217e"
 };
 
@@ -103,12 +101,12 @@ export const classColors = {
 };
 
 export const indexColors = {
-	SustainabilityIndex: { startColor: colors.red, endColor: colors.blue },
-	HumanIndex: { startColor: colors.purple, endColor: colors.yellow },
-	HealthIndex: { startColor: colors.yellow, endColor: colors.pink },
-	EnvironmentIndex: { startColor: colors.pink, endColor: colors.green },
-	EconomicsIndex: { startColor: colors.purpleDark, endColor: colors.orange },
-	PoliticsIndex: { startColor: colors.orange, endColor: colors.blue }
+	SustainabilityIndex: { startColor: colors.dark, endColor: colors.blue },
+	HumanIndex: { startColor: colors.dark, endColor: colors.purple },
+	HealthIndex: { startColor: colors.dark, endColor: colors.red },
+	EnvironmentIndex: { startColor: colors.dark, endColor: colors.green },
+	EconomicsIndex: { startColor: colors.dark, endColor: colors.yellow },
+	PoliticsIndex: { startColor: colors.dark, endColor: colors.orange }
 };
 
 export const colorAccessor = (d, color, key) => {
@@ -118,10 +116,11 @@ export const colorAccessor = (d, color, key) => {
 	} else if (color === "Class") {
 		return classColors[d[key + "Class"]];
 	} else {
-		const colorInterpolation = interpolateRgb(
+		const colorInterpolation = interpolateRgbBasis([
 			indexColors[color].startColor,
-			indexColors[color].endColor
-		);
+			indexColors[color].endColor,
+			"white"
+		]);
 		return colorInterpolation(d[color]);
 	}
 };

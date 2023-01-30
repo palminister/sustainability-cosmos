@@ -94,6 +94,14 @@
 							>Clustering Our World with TSNE
 						</a>
 					</li>
+					<li>
+						<a
+							href="https://github.com/palminister/sustainability-cosmos"
+							target="_blank"
+							rel="noopener noreferrer"
+							>GitHub Repository
+						</a>
+					</li>
 				</ul>
 				<h5>THE TEAM</h5>
 				<ul>

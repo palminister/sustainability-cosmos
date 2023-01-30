@@ -38,8 +38,8 @@ export const continentOptions = [
 
 export const classOptions = [
 	{ value: "All" },
-	{ value: "High" },
-	{ value: "Low" }
+	{ value: "Low" },
+	{ value: "High" }
 ];
 
 export const countryOptions = [
@@ -82,7 +82,9 @@ export const colors = {
 	blue: "#09CEFF",
 	orange: "#ff7f00",
 	yellow: "#FFDE32",
-	purple: "#690EFF",
+	purple: "#995bff",
+	purpleDark: "#5b6fff",
+	pink: "#ed2ea0",
 	dark: "#1e217e"
 };
 
@@ -101,12 +103,12 @@ export const classColors = {
 };
 
 export const indexColors = {
-	SustainabilityIndex: { startColor: colors.dark, endColor: colors.blue },
-	HumanIndex: { startColor: colors.dark, endColor: colors.purple },
-	HealthIndex: { startColor: colors.dark, endColor: colors.red },
-	EnvironmentIndex: { startColor: colors.dark, endColor: colors.green },
-	EconomicsIndex: { startColor: colors.dark, endColor: colors.yellow },
-	PoliticsIndex: { startColor: colors.dark, endColor: colors.orange }
+	SustainabilityIndex: { startColor: colors.red, endColor: colors.blue },
+	HumanIndex: { startColor: colors.purple, endColor: colors.yellow },
+	HealthIndex: { startColor: colors.yellow, endColor: colors.pink },
+	EnvironmentIndex: { startColor: colors.pink, endColor: colors.green },
+	EconomicsIndex: { startColor: colors.purpleDark, endColor: colors.orange },
+	PoliticsIndex: { startColor: colors.orange, endColor: colors.blue }
 };
 
 export const colorAccessor = (d, color, key) => {

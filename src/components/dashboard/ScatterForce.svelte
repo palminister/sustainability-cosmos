@@ -14,8 +14,8 @@
 
 	export let selectedCountry;
 	export let selectedContinent;
-	export let xStrength = 0.5;
-	export let yStrength = 0.5;
+	export let xStrength = 1;
+	export let yStrength = 1;
 	const random = randomUniform(-800, 800);
 
 	let nodes = [];

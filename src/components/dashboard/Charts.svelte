@@ -697,7 +697,7 @@
 							{#each indexOptions as { value }}
 								<tr>
 									<td style="width:70%; padding-left: 0px;">{value}</td>
-									<td>{(+detail[value + "Index"]).toFixed(2)}</td>
+									<td>{(+detail[value + "Index"]).toFixed(3)}</td>
 								</tr>
 							{/each}
 						</table>

@@ -40,7 +40,11 @@
 					/>
 					<label class="option {labelClass}" for={`${id}-${option.slug}`}>
 						<span class="checkmark" />
-						{option.label || option.value}
+						{#if option.label || option.value === "Class"}
+							Low-High Index
+						{:else}
+							{option.label || option.value}
+						{/if}
 					</label>
 				</div>
 			{/each}

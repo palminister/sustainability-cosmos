@@ -578,8 +578,12 @@
 			<QuestionMark bind:open={isInfoOpen}>
 				<div class="buttons" slot="tour">
 					<button class="tour-button" on:click={handleTourStart}>Guide</button>
-					<button class="tour-button" on:click={handleTourStart}
-						>Insights</button
+					<a
+						href="https://medium.com/@deardadaa/to-be-sustainable-country-is-to-seek-what-the-world-is-6ec0424434e4"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<button class="tour-button">Insights</button></a
 					>
 				</div>
 			</QuestionMark>

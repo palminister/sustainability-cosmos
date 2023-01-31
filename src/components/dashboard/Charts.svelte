@@ -336,7 +336,7 @@
 		});
 		tour.addStep({
 			id: "step-2-cluster",
-			text: 'The first mode is the "Cluster" mode, which groups countries into clusters based on their level of the corresponding index. This mode allows you to identify which countries are similar (the closer together, the more similar)',
+			text: 'The first mode is the "Cluster" mode, which groups countries into clusters based on the corresponding index using tSNE machine learning algorithm. This mode allows you to identify which countries are similar (the closer together, the more similar)',
 			attachTo: {
 				element: ".option-cluster",
 				on: "right"
@@ -356,7 +356,7 @@
 		});
 		tour.addStep({
 			id: "step-2-average",
-			text: 'The second mode is the "Average" mode, which allows you to see the performance of countries based on the index level and compare it to the global/continental average. The average score changes corresponding to the data you filter.',
+			text: 'The second mode is the "Average" mode, which allows you to see the performance of countries based on the index level (the higher value, the higher position) and compare it to the global/continental average. The average line changes corresponding to the data you filter.',
 			attachTo: {
 				element: ".option-average",
 				on: "right"

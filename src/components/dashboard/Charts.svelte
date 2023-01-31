@@ -741,8 +741,10 @@
 			{:else}
 				<LayerCake {data} {x} {y} {padding}>
 					<Svg>
-						<AxisX />
-						<AxisY />
+						{#if selectedView === "Average"}
+							<!-- <AxisX /> -->
+							<AxisY />
+						{/if}
 						{#if stdValue}
 							<Deviation {meanValue} {stdValue} />
 						{/if}
